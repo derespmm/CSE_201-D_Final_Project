@@ -1,25 +1,33 @@
 # Python Text RPG
-# Names: Matt DeRespinis, 
+# Names: Matt DeRespinis, Teddy Simpson
 
 import cmd
 import textwrap
 import sys
 import os
 import time
+import timeit
 import random
 import shutil
+import item as i
 
 terminal_width = shutil.get_terminal_size().columns
 width = 50
 
-##### PLAYER CLASS #####
-class player:
-    def __init__(self):
-        self.name = ""
-myPlayer = player()
 
-##### TITLE SCREEN #####
-def titleScreen():
+class Player:
+    """A class for the player character."""
+    def __init__(self, name):
+        self.name = name
+        self.inventory = i.Inventory()
+
+
+myPlayer = Player("Jon")
+otherPlayer = Player("Matthew")
+
+
+def title_screen():
+    """A title screen wow!"""
     print("+================================================+")
     print(str.center("Welcome to Unearthed Echoes", width))
     print("+================================================+")
@@ -27,4 +35,5 @@ def titleScreen():
     print("2. Help")
     print("3. Quit")
 
-titleScreen()
+
+title_screen()
