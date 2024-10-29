@@ -28,3 +28,21 @@ class Room:
         else:
             print("Invalid area coordinates.")
             return False
+
+class Area(Room):
+    def __init__(self, room_name, room_description, areas, area_name, area_description, interactables):
+        # Initialize Room attributes
+        super().__init__(room_name, room_description, areas)
+        self.area_name = area_name                   # Area name
+        self.area_description = area_description     # Area description
+        self.interactables = interactables           # List or dictionary of interactable objects in the area
+
+    def get_area_name(self):
+        return self.area_name
+
+    def get_area_description(self):
+        return self.area_description
+
+    def go_to_area(self):
+        print(f"Going to area: {self.area_name}")
+        return True
