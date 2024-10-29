@@ -1,5 +1,5 @@
 # Python Text RPG
-# Names: Matt DeRespinis, Teddy Simpson, Dylan Kendall
+# Names: Matt DeRespinis, Teddy Simpson, Dylan Kendall, Noah Arnold
 
 import cmd
 import textwrap
