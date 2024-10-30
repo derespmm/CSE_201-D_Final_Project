@@ -1,6 +1,5 @@
 import item as i
 
-
 class Player:
     """A class for the player character."""
 
@@ -8,7 +7,7 @@ class Player:
         self.player_name = name
         self.item_inventory = []
         self.notes_inventory = []
-        self.room_location = None
+        self.room_location = (1, 1)  # Start in the center of the 3x3 cabin grid
         self.area_location = None
 
     def get_player_name(self) -> str:
@@ -25,25 +24,45 @@ class Player:
             return False
 
     def has_item(self, item: i.Item) -> bool:
-        if item in self.item_inventory:
-            return True
-        else:
-            return False
+        return item in self.item_inventory
 
     def print_inventory(self):
         for item in self.item_inventory:
             print(item.get_name())
 
-    def move(self, direction: str) -> bool:
+    def move(self, direction: str, cabin) -> bool:
+        x, y = self.room_location
+        new_x, new_y = x, y  # Default to current position
+
+        # Determine new position based on the direction
         if "left" in direction.lower() or "west" in direction.lower():
-            print("You moved left.")
+            if y > 0:
+                new_y -= 1
+            else:
+                print("Its just a wall.")
         elif "right" in direction.lower() or "east" in direction.lower():
-            print("You moved right.")
+            if y < 2:
+                new_y += 1
+            else:
+                print("Its just a wall.")
         elif "up" in direction.lower() or "north" in direction.lower():
-            print("You moved up.")
+            if x > 0:
+                new_x -= 1
+            else:
+                print("Its just a wall.")
         elif "down" in direction.lower() or "south" in direction.lower():
-            print("You moved down.")
+            if x < 2:
+                new_x += 1
+            else:
+                print("Its just a wall.")
         else:
             print("Please enter a valid command!")
             return False
-        return True
+
+        # Only update location if there's no wall
+        if (new_x, new_y) != (x, y):
+            self.room_location = (new_x, new_y)
+            cabin.enter_area(new_x, new_y)
+            return True
+
+        return False
