@@ -33,26 +33,27 @@ class Game:
 
     def initialize_cabin(self):
         """Initializes a 3x3 cabin with descriptions for each area."""
+        
         cabin_layout = [
             ["You find yourself in a dusty corner. There's nothing of interest here.", 
-             "You look at the concrete wall in front of you. There's nothing of interest here.", 
-             "A ladder is propped up against the wall, leading to a trapdoor."],
-            ["There's an ordinary bookshelf.", 
+             "There's an ordinary bookshelf.", 
+             "You see a shelf hung up, but nothing is on it. There's nothing of interest here."],
+            ["You look at the concrete wall in front of you. There's nothing of interest here.", 
              "the center of the cabin", 
-             "There's a torn piece of paper."],
-            ["You see a shelf hung up, but nothing is on it. There's nothing of interest here.", 
-             "There is a toolbox secured with a 4-digit padlock", 
+             "There is a toolbox secured with a 4-digit padlock"],
+            ["A ladder is propped up against the wall, leading to a trapdoor.", 
+             "There's a torn piece of paper.", 
              "A spider is crawling on the floor. There is nothing of interest here."],
         ]
         interaction_texts = {
             (0, 0): "There is nothing of interest.",
-            (0, 1): "There is nothing of interest.",
-            (0, 2): "You climb the ladder and try the trapdoor. It seems like it's nailed shut.",
-            (1, 0): "You rifle through the books on the shelf until you come across a tattered notebook. Inside there are diagrams of what seems to be some elaborate device.",
+            (0, 1): "You rifle through the books on the shelf until you come across a tattered notebook. Inside there are diagrams of what seems to be some elaborate device.",
+            (0, 2): "There is nothing of interest.",
+            (1, 0): "There is nothing of interest.",
             (1, 1): "Some lore text.",
-            (1, 2): "You pick up the torn piece of paper.",
-            (2, 0): "There is nothing of interest.",
-            (2, 1): "What are the four digits?",
+            (1, 2): "What are the four digits?",
+            (2, 0): "You climb the ladder and try the trapdoor. It seems like it's nailed shut.",
+            (2, 1): "You pick up the torn piece of paper.",
             (2, 2): "There is nothing of interest."
         }
         return r.Room("Cabin", "A dimly lit, cramped cabin.", cabin_layout, interaction_texts)
