@@ -1,5 +1,5 @@
 # Python Text RPG
-# Names: Matt DeRespinis, Teddy Simpson, Dylan Kendall, Noah Arnold
+# Names: Matt DeRespinis, Teddy Simpson, Dylan Kendall, Noah Arnold, Natalie Taylor, Nolan Burney
 
 import cmd
 import textwrap
@@ -16,12 +16,14 @@ import room as r
 terminal_width = shutil.get_terminal_size().columns
 width = 50
 
+# Initialize game with settings and player. 
 class Game:
     def __init__(self):
         self.cabin = self.initialize_cabin()
         self.player = p.Player("Jon", current_room=self.cabin)
         self.running = True
-
+    
+    # Prints the title screen
     def title_screen(self):
         """A title screen wow!"""
         print("+================================================+")
@@ -31,20 +33,19 @@ class Game:
         print("2. Help")
         print("3. Quit\n")
 
+    # Initializes a 3x3 cabin with descriptions for each area.
     def initialize_cabin(self):
-        """Initializes a 3x3 cabin with descriptions for each area."""
-        
-        cabin_layout = [
-            ["You find yourself in a dusty corner. There's nothing of interest here.", 
-             "There's an ordinary bookshelf.", 
-             "You see a shelf hung up, but nothing is on it. There's nothing of interest here."],
-            ["You look at the concrete wall in front of you. There's nothing of interest here.", 
-             "the center of the cabin", 
-             "There is a toolbox secured with a 4-digit padlock"],
-            ["A ladder is propped up against the wall, leading to a trapdoor.", 
-             "There's a torn piece of paper.", 
-             "A spider is crawling on the floor. There is nothing of interest here."],
-        ]
+        cabin_layout = {
+            (0, 0): "You find yourself in a dusty corner. There's nothing of interest here.",
+            (0, 1): "There's an ordinary bookshelf.",
+            (0, 2): "You see a shelf hung up, but nothing is on it. There's nothing of interest here.",
+            (1, 0): "You look at the concrete wall in front of you. There's nothing of interest here.",
+            (1, 1): "the center of the cabin",
+            (1, 2): "There is a toolbox secured with a 4-digit padlock",
+            (2, 0): "A ladder is propped up against the wall, leading to a trapdoor.",
+            (2, 1): "There's a torn piece of paper.",
+            (2, 2): "A spider is crawling on the floor. There is nothing of interest here."
+        }
         interaction_texts = {
             (0, 0): "There is nothing of interest.",
             (0, 1): "You rifle through the books on the shelf until you come across a tattered notebook. Inside there are diagrams of what seems to be some elaborate device.",
@@ -58,8 +59,8 @@ class Game:
         }
         return r.Room("Cabin", "A dimly lit, cramped cabin.", cabin_layout, interaction_texts)
 
+    # Flavor text for the player waking up in the cabin.
     def wake_up_flavor_text(self):
-        """Flavor text for the player waking up in the cabin."""
         time.sleep(1)
         print("\nYou feel groggy, your head throbs slightly as you open your eyes.")
         time.sleep(1)
