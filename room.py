@@ -1,7 +1,12 @@
 import item as i
+import random
+
+pass1 = str(random.randint(10, 99))
+pass2 = str(random.randint(10, 99))
+password = pass1 + pass2
 
 class Room:
-    def __init__(self, room_name: str, room_description: str, areas:str, interaction_texts: str):
+    def __init__(self, room_name: str, room_description, areas, interaction_texts):
         self.room_name = room_name                # Room name
         self.room_description = room_description  # Room description
         self.areas = areas                        # 2D list of areas within the room
@@ -34,7 +39,7 @@ class Room:
         
     # Returns true if code is correct, false o.w.
     def check_code(self, code):
-        if code == "5324":
+        if code == password:
             return True
         else:
             return False
@@ -49,7 +54,7 @@ class Room:
             else:
                 # Player finds the notebook
                 print(self.interactions[(0, 1)])  # Original interaction text
-                notebook = i.Item(notebook_name, "An old, fragile notebook filled with faded notes and diagrams.", "You examine the notebook. ADD FLAVOR TEXT TO FIND THE FIRST 2 DIGITS")
+                notebook = i.Item(notebook_name, "An old, fragile notebook filled with faded notes and diagrams.", "You examine the notebook. It says " + pass1 + ".")
                 player.add_item(notebook)
                 print("You take the tattered notebook and add it to your inventory.")
         elif (x, y) == (2, 1):
@@ -59,7 +64,7 @@ class Room:
             else:
                 # Player finds the paper
                 print(self.interactions[(2, 1)])  # Original interaction text
-                paper = i.Item(paper_name, "A torn piece of paper.", "You examine the torn piece of paper. The numbers 2 and 4 are barely discernible, scribbled in red ink which has nearly faded.")
+                paper = i.Item(paper_name, "A torn piece of paper.", "You examine the torn piece of paper. The numbers " + pass2 + " are barely discernible, scribbled in red ink which has nearly faded.")
                 player.add_item(paper)
                 print("You take the torn piece of paper and add it to your inventory.")
         elif (x, y) == (1, 2):

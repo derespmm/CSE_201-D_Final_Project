@@ -1,0 +1,21 @@
+# cabin_layout
+You find yourself in a dusty corner. There's nothing of interest here.
+There's an ordinary bookshelf.
+You see a shelf hung up, but nothing is on it. There's nothing of interest here.
+You look at the concrete wall in front of you. There's nothing of interest here.
+The center of the cabin
+There is a toolbox secured with a 4-digit padlock
+A ladder is propped up against the wall, leading to a trapdoor.
+There's a torn piece of paper.
+A spider is crawling on the floor. There is nothing of interest here.
+
+# interaction_texts
+There is nothing of interest.
+You rifle through the books on the shelf until you come across a tattered notebook. Inside there are diagrams of what seems to be some elaborate device.
+There is nothing of interest.
+There is nothing of interest.
+Some lore text.
+What are the four digits?
+You climb the ladder and try the trapdoor. It seems like it's nailed shut.
+You pick up the torn piece of paper.
+There is nothing of interest.
