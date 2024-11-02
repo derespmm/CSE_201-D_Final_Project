@@ -87,7 +87,13 @@ class Game:
             else:
                 print("There is no room to interact with.")
         elif "help" in command.lower():
-            print("We don't have anything here yet :(")
+            print("Valid commands: ")
+            print("\"help\" - display this help message")
+            print("\"move [DIRECTION]\" - move in that direction")
+            print("\"interact\" - interact with the area")
+            print("\"inventory\" - display your current inventory")
+            print("\"inspect [ITEM_NAME]\" - inspect an item in your inventory")
+            print("\"quit\" - quit the game")
         elif "exit" in command.lower() or "quit" in command.lower():
             return False
         else:
@@ -107,7 +113,13 @@ class Game:
                 self.wake_up_flavor_text()
                 self.player.room_location = (1, 1)  # Center of the 3x3 cabin grid
             elif start == "2" or start.lower() == "help":
-                print("I'm helping!\n")
+                print("Valid commands: ")
+                print("\"help\" - display this help message")
+                print("\"move [DIRECTION]\" - move in that direction")
+                print("\"interact\" - interact with the area")
+                print("\"inventory\" - display your current inventory")
+                print("\"inspect [ITEM_NAME]\" - inspect an item in your inventory")
+                print("\"quit\" - quit the game")
             elif start == "3" or start.lower() == "quit":
                 starting = False
                 self.running = False

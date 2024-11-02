@@ -55,13 +55,13 @@ class Player:
         x, y = self.room_location
         new_x, new_y = x, y  # Default to current position
 
-    # Determine new position based on the direction
+        # Determine new position based on the direction
         if "left" in direction.lower() or "west" in direction.lower():
             if x > 0:
                 new_x -= 1
             else:
                 print("It's just a wall.")
-                return False 
+                return False
         elif "right" in direction.lower() or "east" in direction.lower():
             if x < self.current_room.size - 1:
                 new_x += 1
@@ -84,9 +84,12 @@ class Player:
             print("Please enter a valid command!")
             return False
 
-    # Only update location if there's no wall
-        if (new_x, new_y) != (x, y):
+    # Final position update only if valid within the room layout
+        if (new_x, new_y) in self.current_room.areas:
             self.room_location = (new_x, new_y)
-            self.current_room.enter_area(new_x, new_y)  # Call enter_area to print the description
+            self.current_room.enter_area(new_x, new_y)  # Enter area only when valid
             return True
-        return False
+        else:
+            print("It's just a wall.")
+            return False
+
