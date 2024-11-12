@@ -1,0 +1,54 @@
+# forest layout enter tile texts
+X
+A slight breeze stirs the leaves, bringing with it the earthy scent of moss and damp wood. The forest stretches endlessly in all directions, a labyrinth of trees.
+The air is thick with the scent of pine and damp earth, and with every step, soft leaves crunch beneath your feet, alerting the whole forest to your location.
+A faint glint beneath a patch of moss draws your attention.
+X
+A deafening silence spreads upon the forest as you see an ominous structure to the east.
+Tall trees stretch overhead, their branches weaving together to form a canopy that dims the already faint starlight. All is quiet, save for the occasional rustle of leaves. You can feel the piercing cold seep into your bones.
+The night sky struggles to filter through the tangled branches. The absolute silence of the forest reminds you just how little you can see.
+As you move deeper into the woods, the trees grow closer together. The freezing air is thick with moisture, soaking the freezing cold into your very being.
+The trees grow closer together here, their bark rough and knotted with age. The forest floor is soft beneath your feet, thick with layers of fallen leaves.
+You find a massive structure of unknown origin fragmented in a crater.
+A deafening silence spreads upon the forest as you see an ominous structure to the north.
+Thick, twisted branches loom above, blotting out the night sky. The air grows heavy and cold as darkness creeps in around you.
+The warmth of the cabin quickly becomes a distant memory as you step out into the harsh cold of a dark and unfamiliar forest. You have never felt more alone.
+The sound of a distant stream barely reaches your ears. It sounds heavy and slow moving, like a suffocating molasses.
+A deafening silence spreads upon the forest as you see an ominous structure to the west.
+Massive trees surround you, their trunks thick with moss. A soft silence fills the air, broken only by the foreboding call of a bird.
+You find yourself in a thick grove, where the trees stand like sentinels, silent and ancient. You should be calm, but you can’t help but feel as though you are being watched.
+The forest floor is soft with fallen leaves, and the canopy overhead gives the area a muted, tranquil feel. You get the sense that you are the first to set foot here in a long, long time.
+X
+The forest grows denser as you walk, darkness deepening under the trees which obscure the night sky, leaving prickles in your spine.
+X
+You pause as the underbrush seems disturbed, and something unnatural peeks out from the leaves.
+Thick vines drape over the branches, tangled and knotted like a colossal web. The forest feels dense and ancient, as if it’s been untouched for generations.
+X
+
+# forest layout tile interaction texts
+X
+There is nothing of interest.
+There is nothing of interest.
+You peel away the moss to reveal an odd device, clearly used for powering something.
+X
+There is nothing of interest.
+There is nothing of interest.
+There is nothing of interest.
+There is nothing of interest.
+There is nothing of interest.
+You carefully arm and place the explosive by the structure, quickly making distance between you and it, eventually taking cover behind a tree. After hearing an explosion, you look out to see that there is now an opening in the structure. You approach the opening and step inside.
+There is nothing of interest.
+There is nothing of interest.
+You enter the cabin and climb down the ladder.
+There is nothing of interest.
+There is nothing of interest.
+There is nothing of interest.
+There is nothing of interest.
+There is nothing of interest.
+X
+There is nothing of interest.
+X
+You part the brush, revealing a shoddy looking device with random wires sticking out of it, a timer that reads 3:00, and a red button.
+There is nothing of interest.
+X
+

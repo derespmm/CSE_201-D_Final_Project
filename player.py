@@ -9,8 +9,8 @@ class Player:
         self.room_location = (1, 1)  # Player starts at the center tile
         self.current_room = current_room  # Reference to the current room
 
-    # Method to set the current room (useful for switching areas)
     def set_current_room(self, room):
+        """Sets the player's current room."""
         self.current_room = room
     
     # Returns players name

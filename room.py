@@ -1,5 +1,7 @@
 import item as i
 import random
+import time
+import main
 
 pass1 = str(random.randint(10, 99))
 pass2 = str(random.randint(10, 99))
@@ -12,7 +14,9 @@ class Room:
         self.areas = areas                        # 2D list of areas within the room
         self.size = len(areas)
         self.interactions = interaction_texts     # Size based on the number of rows in areas
-        self.boxUnlocked = False                  # Flag to track if the box is unlocked
+        self.boxUnlocked = False
+
+    
     
     # Returns the current room
     def get_room_name(self) -> str:
@@ -82,7 +86,6 @@ class Room:
                     print("The lock doesn't budge.")
         elif (x, y) == (2, 0):
             if player.has_item("crowbar"):
-                print("You finished the demo!")
                 quit()
             else:
                 print(self.interactions[(2, 0)])

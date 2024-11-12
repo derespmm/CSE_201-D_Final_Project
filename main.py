@@ -2,6 +2,7 @@
 # Names: Matt DeRespinis, Teddy Simpson, Dylan Kendall, Noah Arnold, Natalie Taylor, Nolan Burney
 # Version 1.0
 
+# main.py
 import cmd
 import textwrap
 import sys
@@ -21,12 +22,12 @@ width = 50
 class Game:
     def __init__(self):
         self.cabin = self.initialize_cabin()
+        self.forest = self.initialize_forest()
         self.player = p.Player("Jon", current_room=self.cabin)
         self.running = True
     
     # Prints the title screen
     def title_screen(self):
-        """A title screen wow!"""
         print("+================================================+")
         print(str.center("Welcome to Unearthed Echoes", width))
         print("+================================================+")
@@ -35,29 +36,49 @@ class Game:
         print("3. Quit\n")
 
     def initialize_cabin(self):
-        # Initializes a 3x3 cabin with descriptions for each area.
+        # Initialize cabin layout and interaction texts from file
         cabin_layout = {}
         interaction_texts = {}
-        
         with open("cabinInfo.txt", "r") as cabinInfo:
             cabinInfo.readline()
-            
             for x in [0, 1, 2]:
                 for y in [0, 1, 2]:
                     cabin_layout[(x, y)] = cabinInfo.readline().strip()
-
             cabinInfo.readline()
             cabinInfo.readline()
-
             for x in [0, 1, 2]:
                 for y in [0, 1, 2]:
                     interaction_texts[(x, y)] = cabinInfo.readline().strip()
-
             cabinInfo.readline()
-
         return r.Room("Cabin", "A dimly lit, cramped cabin.", cabin_layout, interaction_texts)
+    
+    def initialize_forest(self):
+        # Initialize forest layout and interaction texts from file
+        forest_layout = {}
+        interaction_texts = {}
+        with open("forestInfo.txt", "r") as forestInfo:
+            forestInfo.readline()
+            for x in range(5):
+                for y in range(5):
+                    forest_layout[(x, y)] = forestInfo.readline().strip()
+            forestInfo.readline()
+            forestInfo.readline()
+            for x in range(5):
+                for y in range(5):
+                    interaction_texts[(x, y)] = forestInfo.readline().strip()
+            forestInfo.readline()
+        return r.Room("Forest", "Description", forest_layout, interaction_texts)
 
-    # Flavor text for the player waking up in the cabin.
+    # Transitional text for trapdoor event
+    def cabin_to_forest_transitional_text(self):
+        print("\nYou open the trapdoor and a cool breeze greets you from below.")
+        time.sleep(2)
+        print("After a moment's hesitation, you descend into the dark passageway.")
+        time.sleep(3)
+        print("Emerging on the other side, you find yourself in a dense forest with towering trees around.\n")
+        time.sleep(1)
+
+    # Flavor text for player waking up
     def wake_up_flavor_text(self):
         time.sleep(1)
         print("\nYou feel groggy, your head throbs slightly as you open your eyes.")
@@ -69,21 +90,28 @@ class Game:
         print("You notice a few things around you in this tiny cabin - perhaps you should take a look.\n")
         time.sleep(1)
 
-    # Processes player commands and implement actions. 
+    # Updates to handle player commands including room transition
     def run_command(self, command: str = "exit") -> bool:
         if "move" in command.lower():
             self.player.move(command)
         elif "inventory" in command.lower():
             self.player.print_inventory()
-        elif "test" in command.lower():
-            print("you tested a command")
         elif "inspect" in command.lower() or "examine" in command.lower():
             item_name = command.split(" ", 1)[1] if " " in command else ""
             self.player.inspect_item(item_name)
         elif "interact" in command.lower():
-            x, y = self.player.room_location  # Get player's current position
+            x, y = self.player.room_location
             if self.player.current_room:
-                self.player.current_room.interact_with_area(x, y, self.player)
+                # Check if interaction requires transition
+                if self.player.current_room.room_name == "Cabin" and (x, y) == (2, 0):
+                    if self.player.has_item("crowbar"):
+                        self.cabin_to_forest_transitional_text()
+                        self.player.set_current_room(self.forest)
+                        self.player.room_location = (2, 3)  # Center of the 5x5 forest grid
+                    else:
+                        print("The trapdoor is stuck. Maybe there's something to pry it open.")
+                else:
+                    self.player.current_room.interact_with_area(x, y, self.player)
             else:
                 print("There is no room to interact with.")
         elif "help" in command.lower():
@@ -101,7 +129,6 @@ class Game:
         print("")
         return True
 
-    # Starts the game, displays title screen, and handles inputs from player. 
     def start(self):
         self.title_screen()
         starting = True
@@ -111,14 +138,14 @@ class Game:
                 starting = False
                 print("Starting a new game!")
                 self.wake_up_flavor_text()
-                self.player.room_location = (1, 1)  # Center of the 3x3 cabin grid
+                self.player.room_location = (1, 1)
             elif start == "2" or start.lower() == "help":
                 print("Valid commands: ")
                 print("\"help\" - display this help message")
                 print("\"move [DIRECTION]\" - move in that direction")
                 print("\"interact\" - interact with the area")
                 print("\"inventory\" - display your current inventory")
-                print("\"inspect [ITEM_NAME]\" - inspect an item in your inventory")
+                print("\"inspect [ITEM NAME]\" - inspect an item in your inventory")
                 print("\"quit\" - quit the game")
             elif start == "3" or start.lower() == "quit":
                 starting = False
