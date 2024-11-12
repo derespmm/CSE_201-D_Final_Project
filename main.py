@@ -74,7 +74,7 @@ class Game:
             sys.stdout.write(char)
             sys.stdout.flush()
             time.sleep(delay)
-        print("\n")
+        print()
 
     # Transitional text for trapdoor event
     def cabin_to_forest_transitional_text(self):
