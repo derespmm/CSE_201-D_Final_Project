@@ -1,6 +1,10 @@
 # Python Text RPG
-# Names: Matt DeRespinis, Teddy Simpson, Dylan Kendall, Noah Arnold, Natalie Taylor, Nolan Burney
-# Version 1.0
+# Class: Main 
+# Authors: Matt DeRespinis, Teddy Simpson, Dylan Kendall, Noah Arnold, Natalie Taylor, Nolan Burney 
+# Version 1.0 
+# Course: CSE 201 Fall 2024
+# Written: November 2024
+# Purpose: 
 
 # main.py
 import cmd
@@ -18,7 +22,7 @@ import room as r
 terminal_width = shutil.get_terminal_size().columns
 width = 50
 
-# Initialize game with settings and player. 
+# Initialize game with settings and player
 class Game:
     def __init__(self):
         self.cabin = self.initialize_cabin()
@@ -35,8 +39,8 @@ class Game:
         print("2. Help")
         print("3. Quit\n")
 
+    # Initialize cabin layout and interaction texts from file
     def initialize_cabin(self):
-        # Initialize cabin layout and interaction texts from file
         cabin_layout = {}
         interaction_texts = {}
         with open("cabinInfo.txt", "r") as cabinInfo:
@@ -52,8 +56,8 @@ class Game:
             cabinInfo.readline()
         return r.Room("Cabin", "A dimly lit, cramped cabin.", cabin_layout, interaction_texts)
     
+    # Initialize forest layout and interaction texts from file
     def initialize_forest(self):
-        # Initialize forest layout and interaction texts from file
         forest_layout = {}
         interaction_texts = {}
         with open("forestInfo.txt", "r") as forestInfo:
@@ -69,6 +73,7 @@ class Game:
             forestInfo.readline()
         return r.Room("Forest", "Description", forest_layout, interaction_texts)
     
+    # A method to print out text one character at a time
     def cool_print(self, text, delay=0.05):
         for char in text:
             sys.stdout.write(char)
@@ -136,6 +141,7 @@ class Game:
         print("")
         return True
 
+    # The game starting screen and initializes all neeeded objects
     def start(self):
         self.title_screen()
         starting = True
@@ -154,10 +160,24 @@ class Game:
                 print("\"inventory\" - display your current inventory")
                 print("\"inspect [ITEM NAME]\" - inspect an item in your inventory")
                 print("\"quit\" - quit the game")
-            elif start == "3" or start.lower() == "quit":
+            elif start == "3" or start.lower() == "quit" or start.lower() == "exit":
                 starting = False
                 self.running = False
                 print("Closing the game!\n")
+            elif start.lower() == "debug":
+                print("\n[ENTERING SUPER HACKER DEBUG MODE!!!]")
+                location = input("What room do you want to start in? ")
+                if "cabin" in location.lower():
+                    starting = False
+                    print("Now you'r in the cabin at 1,1\n")
+                    self.player.current_room = self.cabin
+                    self.player.room_location = (1, 1)
+                elif "forest" in location.lower():
+                    starting = False
+                    self.player.current_room = self.forest
+                    self.player.room_location = (2, 3)
+                    print("How your in the forest at 2,3\n")
+
 
         while self.running:
             cmd = input("Enter a command: ")

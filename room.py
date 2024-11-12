@@ -1,3 +1,10 @@
+# Class: Room
+# Authors: Matt DeRespinis, Teddy Simpson, Dylan Kendall, Noah Arnold, Natalie Taylor, Nolan Burney 
+# Version 1.0 
+# Course: CSE 201 Fall 2024
+# Written: November 2024
+# Purpose: A class to hold data for rooms, areas, descriptions, and interactables. 
+
 import item as i
 import random
 import time
@@ -5,8 +12,8 @@ import main
 
 pass1 = str(random.randint(10, 99))
 pass2 = str(random.randint(10, 99))
-password = pass1 + pass2
 
+# A class to hold all data of various rooms, areas, descriptions, and interactable objects
 class Room:
     def __init__(self, room_name: str, room_description, areas, interaction_texts):
         self.room_name = room_name                # Room name
@@ -41,7 +48,9 @@ class Room:
         
     # Returns true if code is correct, false o.w.
     def check_code(self, code):
-        if code == password:
+        password1 = pass1 + pass2
+        password2 = pass2 + pass1
+        if code == password1 or code == password2:
             return True
         else:
             return False

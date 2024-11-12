@@ -1,6 +1,15 @@
+# Class: Player
+# Authors: Matt DeRespinis, Teddy Simpson, Dylan Kendall, Noah Arnold, Natalie Taylor, Nolan Burney 
+# Version 1.0 
+# Course: CSE 201 Fall 2024
+# Written: November 2024
+# Purpose: A class to hold player character, location, and inventory. 
+
 import item as i
 import room as r
 
+# A class to hold the player character, location, and inventory
+# add access that information for other classes
 class Player:
     def __init__(self, name: str, current_room: r.Room):
         self.player_name = name
@@ -9,19 +18,25 @@ class Player:
         self.room_location = (1, 1)  # Player starts at the center tile
         self.current_room = current_room  # Reference to the current room
 
+    # Sets the player's current room
+    # param room: The room the player is moving to
     def set_current_room(self, room):
-        """Sets the player's current room."""
         self.current_room = room
     
-    # Returns players name
+    # Gets the players name
+    # Return str: a string of the players name.
     def get_player_name(self) -> str:
         return self.player_name
     
     # Adds an item to the players inventory
+    # param item: The item the user is adding to the inventory.
     def add_item(self, item: i.Item):
         self.item_inventory.append(item)
 
-    # Removes item from players inventory then returns true, If item is not present returns false.
+    # Removes item from players inventory.
+    # param item: The item the user is trying to remove from inventory.
+    # Returns bool: if item is removed from inventory -> true, 
+    # o.w -> false.
     def remove_item(self, item: i.Item) -> bool:
         if item in self.item_inventory:
             self.item_inventory.remove(item)
@@ -29,7 +44,10 @@ class Player:
         else:
             return False
 
-    # Returns true if item is in players inventory, false o.w.
+    # Returns whether player has an item in the inventory or not.
+    # param item_name: a string representing the name of the item
+    # Return bool: if item is in the inventory -> true, 
+    # o.w -> false.
     def has_item(self, item_name: str) -> bool:
         return any(item.get_name() == item_name for item in self.item_inventory)
 
@@ -43,6 +61,7 @@ class Player:
                 print(f"- {item.get_name()}: {item.get_description()}")
     
     # Inspect an item in the inventory and display its description.
+    # param item_name: a string representing the item name.
     def inspect_item(self, item_name: str):
         for item in self.item_inventory:
             if item.get_name().lower() == item_name.lower():
@@ -51,6 +70,8 @@ class Player:
         print(f"You don't have an item named '{item_name}' in your inventory.")
 
     # Moves the player
+    # param direction: A string representing where the player wants to move.
+    # return bool: if the player can move in the direction -> true, o.w -> false
     def move(self, direction: str) -> bool:
         x, y = self.room_location
         new_x, new_y = x, y  # Default to current position
