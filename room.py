@@ -16,8 +16,6 @@ class Room:
         self.interactions = interaction_texts     # Size based on the number of rows in areas
         self.boxUnlocked = False
 
-    
-    
     # Returns the current room
     def get_room_name(self) -> str:
         return self.room_name
