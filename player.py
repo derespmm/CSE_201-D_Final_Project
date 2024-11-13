@@ -75,10 +75,12 @@ class Player:
     # return bool: if the player can move in the direction -> true, o.w -> false
     def move(self, direction: str) -> bool:
         text = ""
+        alt_text = ""
         if self.current_room.get_room_name() == "Cabin":
             text = "It's just a wall."
         elif self.current_room.get_room_name() == "Forest":
             text = "A sickly pale fog blocks your path, an unnatural glow emanating from its depths. You move to step into it, but your muscles tense, almost as though your body won't allow you to go any further."
+            alt_text = "The dense foliage blocks your path."
         else:
             print("Invalid room or room not recognized.")
             return False
@@ -117,7 +119,7 @@ class Player:
         
         if (new_x, new_y) in self.current_room.areas:
             if self.current_room.areas[(new_x, new_y)] == "X":
-                print("The dense foliage blocks your path.")
+                print(alt_text)
                 return False
             else:
                 # Update position if valid
