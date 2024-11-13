@@ -119,19 +119,19 @@ class Game:
         starting = True
         while starting:
             start = input("")
-            if start == "1" or start.lower() == "new game":
+            if start == "1" or "new game" in start.lower():
                 starting = False
                 print("Starting a new game!")
                 self.wake_up_flavor_text()
                 self.player.room_location = (1, 1)
-            elif start == "2" or start.lower() == "help":
+            elif start == "2" or "help" in start.lower():
                 help()
-            elif start == "3" or start.lower() == "quit" or start.lower() == "exit":
+            elif start == "3" or "quit" in start.lower():
                 starting = False
                 self.running = False
                 print("Closing the game!\n")
-            elif start.lower() == "debug":
-                print("\n[ENTERING SUPER HACKER DEBUG MODE!!!]")
+            elif start == "4" or "debug" in start.lower():
+                print("[ENTERING SUPER HACKER DEBUG MODE!!!]")
                 location = input("What room do you want to start in? ")
                 if "cabin" in location.lower():
                     starting = False
@@ -143,6 +143,8 @@ class Game:
                     self.player.current_room = self.forest
                     self.player.room_location = (2, 3)
                     print("How your in the forest at 2,3\n")
+                else:
+                    print("Incorrect input now leaving suepr hack debug moer\n")
 
 
         while self.running:

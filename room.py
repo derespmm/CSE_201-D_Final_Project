@@ -8,7 +8,6 @@
 import item as i
 import random
 import time
-import main
 from utils import cool_print
 
 pass1 = str(random.randint(10, 99))
@@ -103,7 +102,7 @@ class Room:
             else:
                 # Player finds the notebook
                 print(self.interactions[(0, 1)])  # Original interaction text
-                notebook = i.Item(notebook_name, "An old, fragile notebook filled with faded notes and diagrams.", "You examine the notebook. It says " + pass1 + ".")
+                notebook = i.Item(notebook_name, "An old, fragile notebook filled with faded notes and diagrams.", "You examine the notebook. It has many complex formulas and equations, but you see a giant " + pass1 + "in the center of the page.")
                 player.add_item(notebook)
                 print("You take the tattered notebook and add it to your inventory.")
         elif (x, y) == (2, 1):
@@ -167,4 +166,4 @@ class Room:
         elif (x, y) in self.interactions:
             print(self.interactions[(x, y)])
         else:
-            print("ERROR")
+            print("There is nothing to interact with here.")
