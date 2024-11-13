@@ -8,7 +8,6 @@
 import item as i
 import random
 import time
-import main
 from utils import cool_print
 
 pass1 = str(random.randint(10, 99))

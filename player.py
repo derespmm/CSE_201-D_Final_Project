@@ -115,8 +115,11 @@ class Player:
             print("Please enter a valid command!")
             return False
         
+        if self.current_room.areas[(new_x, new_y)] == "X":
+            print("A sickly pale fog blocks your path, an unnatural glow emanating from its depths. You move to step into it, but your muscles tense, almost as though your body won't allow you to go any further.")
+            return False
         # Final position update only if valid within the room layout
-        if (new_x, new_y) in self.current_room.areas:
+        elif (new_x, new_y) in self.current_room.areas:
             self.room_location = (new_x, new_y)
             self.current_room.enter_area(new_x, new_y)  # Enter area only when valid
             return True
