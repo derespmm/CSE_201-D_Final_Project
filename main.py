@@ -104,6 +104,8 @@ class Game:
                 print("There is no room to interact with.")
         elif "help" in command.lower():
             help()
+        elif "map" in command.lower():
+            self.player.current_room.map(self.player)
         elif "exit" in command.lower() or "quit" in command.lower():
             return False
         else:

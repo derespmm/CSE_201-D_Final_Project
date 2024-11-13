@@ -56,6 +56,28 @@ class Room:
         else:
             return False
         
+    # def map(self, player):
+    #     # Get the player's current coordinates in the room
+    #     x, y = player.room_location
+        
+    #     # Get the room's layout (either the cabin or forest)
+    #     layout = self.areas
+
+    #     # Iterate over the room layout and print the map
+    #     print(f"\n{self.room_name} Map:")
+    #     for i in range(self.size):  # Loop over rows (y-axis)
+    #         row = ""
+    #         for j in range(self.size):  # Loop over columns (x-axis)
+    #             # Mark the player's position with "X", accessible tiles with "O"
+    #             if (i, j) == (x, y):
+    #                 row += "X "
+    #             else:
+    #                 row += "O "
+    #         print(row)
+    #     print("\nLegend: ")
+    #     print("X: Player")
+    #     print("O: Accessible Tile")
+        
     def interact_with_area(self, x, y, player):
         if self.room_name == "Cabin":
             self.interact_with_area_cabin(x, y, player)
