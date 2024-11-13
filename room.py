@@ -164,5 +164,7 @@ class Room:
                 print("You take the explosive device and add it to your inventory.")
         elif (x, y) == (2, 3):
             pass
+        elif (x, y) in self.interactions:
+            print(self.interactions[(x, y)])
         else:
             print("ERROR")
