@@ -18,6 +18,7 @@ import shutil
 import item as i
 import player as p
 import room as r
+from utils import cool_print
 
 terminal_width = shutil.get_terminal_size().columns
 width = 50
@@ -27,7 +28,7 @@ class Game:
     def __init__(self):
         self.cabin = self.initialize_cabin()
         self.forest = self.initialize_forest()
-        self.player = p.Player("Jon", current_room=self.cabin)
+        self.player = p.Player("Jon", current_room=self.cabin, game=self)
         self.running = True
     
     # Prints the title screen
@@ -72,34 +73,17 @@ class Game:
                     interaction_texts[(x, y)] = forestInfo.readline().strip()
             forestInfo.readline()
         return r.Room("Forest", "Description", forest_layout, interaction_texts)
-    
-    # A method to print out text one character at a time
-    def cool_print(self, text, delay=0.05):
-        for char in text:
-            sys.stdout.write(char)
-            sys.stdout.flush()
-            time.sleep(delay)
-        print()
-
-    # Transitional text for trapdoor event
-    def cabin_to_forest_transitional_text(self):
-        self.cool_print("\nYou open the trapdoor and a cool breeze greets you from below.")
-        time.sleep(2)
-        self.cool_print("After a moment's hesitation, you descend into the dark passageway.")
-        time.sleep(3)
-        self.cool_print("Emerging on the other side, you find yourself in a dense forest with towering trees around.\n")
-        time.sleep(1)
 
     # Flavor text for player waking up
     def wake_up_flavor_text(self):
         time.sleep(1)
-        self.cool_print("\nYou feel groggy, your head throbs slightly as you open your eyes.")
+        cool_print("\nYou feel groggy, your head throbs slightly as you open your eyes.")
         time.sleep(3)
-        self.cool_print("The faint smell of wood and ash fills the air, and as you sit up, you realize you're in a small, cramped cabin.")
+        cool_print("The faint smell of wood and ash fills the air, and as you sit up, you realize you're in a small, cramped cabin.")
         time.sleep(3)
-        self.cool_print("The dim light filters through cracks in the floorboard above you, casting shadows across the rough wooden walls.")
+        cool_print("The dim light filters through cracks in the floorboard above you, casting shadows across the rough wooden walls.")
         time.sleep(3)
-        self.cool_print("You notice a few things around you in this tiny cabin - perhaps you should take a look.\n")
+        cool_print("You notice a few things around you in this tiny cabin - perhaps you should take a look.\n")
         time.sleep(1)
 
     # Updates to handle player commands including room transition
@@ -112,18 +96,10 @@ class Game:
             item_name = command.split(" ", 1)[1] if " " in command else ""
             self.player.inspect_item(item_name)
         elif "interact" in command.lower():
-            x, y = self.player.room_location
             if self.player.current_room:
-                # Check if interaction requires transition
-                if self.player.current_room.room_name == "Cabin" and (x, y) == (2, 0):
-                    if self.player.has_item("crowbar"):
-                        self.cabin_to_forest_transitional_text()
-                        self.player.set_current_room(self.forest)
-                        self.player.room_location = (2, 3)  # Center of the 5x5 forest grid
-                    else:
-                        print("The trapdoor is stuck. Maybe there's something to pry it open.")
-                else:
-                    self.player.current_room.interact_with_area(x, y, self.player)
+        # Directly call interact_with_area for the player's current room and location
+                x, y = self.player.room_location
+                self.player.current_room.interact_with_area(x, y, self.player)
             else:
                 print("There is no room to interact with.")
         elif "help" in command.lower():

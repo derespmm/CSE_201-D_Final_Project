@@ -9,6 +9,7 @@ import item as i
 import random
 import time
 import main
+from utils import cool_print
 
 pass1 = str(random.randint(10, 99))
 pass2 = str(random.randint(10, 99))
@@ -54,9 +55,24 @@ class Room:
             return True
         else:
             return False
+        
+    def interact_with_area(self, x, y, player):
+        if self.room_name == "Cabin":
+            self.interact_with_area_cabin(x, y, player)
+        elif self.room_name == "Forest":
+            self.interact_with_area_forest(x, y, player)
+
+    # Transitional text for trapdoor event
+    def cabin_to_forest_transitional_text(self):
+        cool_print("\nYou open the trapdoor and a cool breeze greets you from below.")
+        time.sleep(2)
+        cool_print("After a moment's hesitation, you descend into the dark passageway.")
+        time.sleep(3)
+        cool_print("Emerging on the other side, you find yourself in a dense forest with towering trees around.\n")
+        time.sleep(1)
     
     # Allows user to interact with specific areas.
-    def interact_with_area(self, x, y, player):
+    def interact_with_area_cabin(self, x, y, player):
         # Interact with the specified tile based on coordinates.
         if (x, y) == (0, 1):
             notebook_name = "notebook"
@@ -93,10 +109,18 @@ class Room:
                     print("The lock doesn't budge.")
         elif (x, y) == (2, 0):
             if player.has_item("crowbar"):
-                quit()
+                self.cabin_to_forest_transitional_text()
+                player.set_current_room(player.game.forest)  # Assuming player has a reference to the game object
+                player.room_location = (2, 3)
             else:
                 print(self.interactions[(2, 0)])
         elif (x, y) in self.interactions:
             print(self.interactions[(x, y)])  # General interactions for other tiles
         else:
             print("There is nothing to interact with here.")
+
+    def interact_with_area_forest(self, x, y, player):
+        if (x, y) in self.interactions:
+            print(self.interactions[(x, y)])  # General interactions for other tiles
+        else:
+            print("ERROR")

@@ -11,12 +11,13 @@ import room as r
 # A class to hold the player character, location, and inventory
 # add access that information for other classes
 class Player:
-    def __init__(self, name: str, current_room: r.Room):
+    def __init__(self, name: str, current_room: r.Room, game=None):
         self.player_name = name
         self.item_inventory = []
         self.notes_inventory = []
         self.room_location = (1, 1)  # Player starts at the center tile
         self.current_room = current_room  # Reference to the current room
+        self.game = game
 
     # Sets the player's current room
     # param room: The room the player is moving to
