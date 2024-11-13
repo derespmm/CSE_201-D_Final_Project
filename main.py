@@ -18,7 +18,7 @@ import shutil
 import item as i
 import player as p
 import room as r
-from utils import cool_print
+from utils import cool_print, help
 
 terminal_width = shutil.get_terminal_size().columns
 width = 50
@@ -97,19 +97,13 @@ class Game:
             self.player.inspect_item(item_name)
         elif "interact" in command.lower():
             if self.player.current_room:
-        # Directly call interact_with_area for the player's current room and location
+                # Directly call interact_with_area for the player's current room and location
                 x, y = self.player.room_location
                 self.player.current_room.interact_with_area(x, y, self.player)
             else:
                 print("There is no room to interact with.")
         elif "help" in command.lower():
-            print("Valid commands: ")
-            print("\"help\" - display this help message")
-            print("\"move [DIRECTION]\" - move in that direction")
-            print("\"interact\" - interact with the area")
-            print("\"inventory\" - display your current inventory")
-            print("\"inspect [ITEM_NAME]\" - inspect an item in your inventory")
-            print("\"quit\" - quit the game")
+            help()
         elif "exit" in command.lower() or "quit" in command.lower():
             return False
         else:
@@ -129,13 +123,7 @@ class Game:
                 self.wake_up_flavor_text()
                 self.player.room_location = (1, 1)
             elif start == "2" or start.lower() == "help":
-                print("Valid commands: ")
-                print("\"help\" - display this help message")
-                print("\"move [DIRECTION]\" - move in that direction")
-                print("\"interact\" - interact with the area")
-                print("\"inventory\" - display your current inventory")
-                print("\"inspect [ITEM NAME]\" - inspect an item in your inventory")
-                print("\"quit\" - quit the game")
+                help()
             elif start == "3" or start.lower() == "quit" or start.lower() == "exit":
                 starting = False
                 self.running = False

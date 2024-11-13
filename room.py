@@ -120,7 +120,27 @@ class Room:
             print("There is nothing to interact with here.")
 
     def interact_with_area_forest(self, x, y, player):
-        if (x, y) in self.interactions:
-            print(self.interactions[(x, y)])  # General interactions for other tiles
+        if (x, y) == (0, 3):
+            battery_name = "battery"
+            if player.has_item(battery_name):
+                print("You already have the battery. There is nothing more for you to do here.")
+            else:
+                # Player finds the battery
+                print(self.interactions[(x, y)])  # Original interaction text
+                battery = i.Item(battery_name, "DESCRIPTION_TEXT", "EXAMINE_TEXT")
+                player.add_item(battery)
+                print("You take the battery and add it to your inventory.")
+        elif (x, y) == (4, 2):
+            explosive_name = "explosive"
+            if player.has_item(explosive_name):
+                print("You already have the explosive device. There is nothing more for you to do here.")
+            else:
+                # Player finds the notebook
+                print(self.interactions[(x, y)])  # Original interaction text
+                explosive = i.Item(explosive_name, "DESCRIPTION_TEXT", "INSPECTION_TEXT")
+                player.add_item(explosive)
+                print("You take the explosive device and add it to your inventory.")
+        elif (x, y) == (2, 3):
+            pass
         else:
             print("ERROR")
