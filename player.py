@@ -70,19 +70,19 @@ class Player:
                 return
         print(f"You don't have an item named '{item_name}' in your inventory.")
 
-    def move(self, direction: str) -> bool:
-        if self.current_room.get_room_name() == "Cabin":
-            return self.move_cabin(direction)  # Call the move_cabin function for the Cabin
-        elif self.current_room.get_room_name() == "Forest":
-            return self.move_forest(direction)  # Call the move_forest function for the Forest
-        else:
-            print("Invalid room or room not recognized.")
-        return False
-
     # Moves the player
     # param direction: A string representing where the player wants to move.
     # return bool: if the player can move in the direction -> true, o.w -> false
-    def move_cabin(self, direction: str) -> bool:
+    def move(self, direction: str) -> bool:
+        text = ""
+        if self.current_room.get_room_name() == "Cabin":
+            text = "It's just a wall."
+        elif self.current_room.get_room_name() == "Forest":
+            text = "A sickly pale fog blocks your path, an unnatural glow emanating from its depths. You move to step into it, but your muscles tense, almost as though your body won't allow you to go any further."
+        else:
+            print("Invalid room or room not recognized.")
+            return False
+
         x, y = self.room_location
         new_x, new_y = x, y  # Default to current position
 
@@ -91,78 +91,35 @@ class Player:
             if x > 0:
                 new_x -= 1
             else:
-                print("It's just a wall.")
+                print(text)
                 return False
         elif "right" in direction.lower() or "east" in direction.lower():
             if x < self.current_room.size - 1:
                 new_x += 1
             else:
-                print("It's just a wall.")
+                print(text)
                 return False
         elif "up" in direction.lower() or "north" in direction.lower():
             if y > 0:
                 new_y -= 1
             else:
-                print("It's just a wall.")
+                print(text)
                 return False
         elif "down" in direction.lower() or "south" in direction.lower():
             if y < self.current_room.size - 1:
                 new_y += 1
             else:
-                print("It's just a wall.")
+                print(text)
                 return False
         else:
             print("Please enter a valid command!")
-            return False
-
-    # Final position update only if valid within the room layout
-        if (new_x, new_y) in self.current_room.areas:
-            self.room_location = (new_x, new_y)
-            self.current_room.enter_area(new_x, new_y)  # Enter area only when valid
-            return True
-        else:
-            print("It's just a wall.")
             return False
         
-    def move_forest(self, direction: str) -> bool:
-        x, y = self.room_location
-        new_x, new_y = x, y  # Default to current position
-
-        # Determine new position based on the direction
-        if "left" in direction.lower() or "west" in direction.lower():
-            if x > 0:
-                new_x -= 1
-            else:
-                print("A sickly pale fog blocks your path, an unnatural glow emanating from its depths. You move to step into it, but your muscles tense, almost as though your body won't allow you to go any further.")
-                return False
-        elif "right" in direction.lower() or "east" in direction.lower():
-            if x < self.current_room.size - 1:
-                new_x += 1
-            else:
-                print("A sickly pale fog blocks your path, an unnatural glow emanating from its depths. You move to step into it, but your muscles tense, almost as though your body won't allow you to go any further.")
-                return False
-        elif "up" in direction.lower() or "north" in direction.lower():
-            if y > 0:
-                new_y -= 1
-            else:
-                print("A sickly pale fog blocks your path, an unnatural glow emanating from its depths. You move to step into it, but your muscles tense, almost as though your body won't allow you to go any further.")
-                return False
-        elif "down" in direction.lower() or "south" in direction.lower():
-            if y < self.current_room.size - 1:
-                new_y += 1
-            else:
-                print("A sickly pale fog blocks your path, an unnatural glow emanating from its depths. You move to step into it, but your muscles tense, almost as though your body won't allow you to go any further.")
-                return False
-        else:
-            print("Please enter a valid command!")
-            return False
-
-    # Final position update only if valid within the room layout
+        # Final position update only if valid within the room layout
         if (new_x, new_y) in self.current_room.areas:
             self.room_location = (new_x, new_y)
             self.current_room.enter_area(new_x, new_y)  # Enter area only when valid
             return True
         else:
-            print("It's just a wall.")
+            print(text)
             return False
-

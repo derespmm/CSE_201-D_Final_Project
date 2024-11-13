@@ -15,4 +15,4 @@ def help():
     print("\"interact\" - interact with the area")
     print("\"inventory\" - display your current inventory")
     print("\"inspect [ITEM_NAME]\" - inspect an item in your inventory")
-    print("\"quit\" - quit the game")
+    print("\"quit\" - quit the game\n")
