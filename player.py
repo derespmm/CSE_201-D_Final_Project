@@ -116,7 +116,7 @@ class Player:
             return False
         
         if self.current_room.areas[(new_x, new_y)] == "X":
-            print("A sickly pale fog blocks your path, an unnatural glow emanating from its depths. You move to step into it, but your muscles tense, almost as though your body won't allow you to go any further.")
+            print("The dense foliage blocks your path.")
             return False
         # Final position update only if valid within the room layout
         elif (new_x, new_y) in self.current_room.areas:
