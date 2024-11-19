@@ -18,7 +18,7 @@ import shutil
 import item as i
 import player as p
 import room as r
-from utils import cool_print, help
+from utils import cool_print, help, wake_up_flavor_text
 
 terminal_width = shutil.get_terminal_size().columns
 width = 50
@@ -74,18 +74,6 @@ class Game:
             forestInfo.readline()
         return r.Room("Forest", "Description", forest_layout, interaction_texts)
 
-    # Flavor text for player waking up
-    def wake_up_flavor_text(self):
-        time.sleep(1)
-        cool_print("\nYou feel groggy, your head throbs slightly as you open your eyes.")
-        time.sleep(3)
-        cool_print("The faint smell of wood and ash fills the air, and as you sit up, you realize you're in a small, cramped cabin.")
-        time.sleep(3)
-        cool_print("The dim light filters through cracks in the floorboard above you, casting shadows across the rough wooden walls.")
-        time.sleep(3)
-        cool_print("You notice a few things around you in this tiny cabin - perhaps you should take a look.\n")
-        time.sleep(1)
-
     # Updates to handle player commands including room transition
     def run_command(self, command: str = "exit") -> bool:
         if "move" in command.lower():
@@ -122,7 +110,7 @@ class Game:
             if start == "1" or "new game" in start.lower():
                 starting = False
                 print("Starting a new game!")
-                self.wake_up_flavor_text()
+                wake_up_flavor_text()
                 self.player.room_location = (1, 1)
             elif start == "2" or "help" in start.lower():
                 help()
