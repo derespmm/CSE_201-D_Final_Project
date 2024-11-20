@@ -3,8 +3,8 @@ You find yourself in a dusty corner. There's nothing of interest here.
 There's an ordinary bookshelf.
 You see a shelf hung up, but nothing is on it. There's nothing of interest here.
 You look at the concrete wall in front of you. There's nothing of interest here.
-The center of the cabin
-There is a toolbox secured with a 4-digit padlock
+The center of the cabin.
+There is a toolbox secured with a 4-digit padlock.
 A ladder is propped up against the wall, leading to a trapdoor.
 There's a torn piece of paper.
 A spider is crawling on the floor. There is nothing of interest here.

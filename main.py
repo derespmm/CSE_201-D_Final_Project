@@ -7,18 +7,10 @@
 # Purpose: 
 
 # main.py
-import cmd
-import textwrap
-import sys
-import os
-import time
-import timeit
-import random
 import shutil
-import item as i
 import player as p
 import room as r
-from utils import cool_print, help, wake_up_flavor_text
+from utils import *
 
 terminal_width = shutil.get_terminal_size().columns
 width = 50

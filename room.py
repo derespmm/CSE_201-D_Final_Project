@@ -7,9 +7,8 @@
 
 import item as i
 import random
-import time
 import math
-from utils import cool_print, cabin_to_forest_transitional_text, ufo_explosion_text, ufo_lit_text
+from utils import *
 
 pass1 = str(random.randint(10, 99))
 pass2 = str(random.randint(10, 99))
@@ -20,7 +19,6 @@ ufoLit = False
 lever1 = 1
 lever2 = 1
 lever3 = 1
-leverCode = str(lever1) + str(lever2) + str(lever3)
 
 # A class to hold all data of various rooms, areas, descriptions, and interactable objects
 class Room:
@@ -118,7 +116,7 @@ class Room:
             else:
                 # Player finds the notebook
                 print(self.interactions[(0, 1)])  # Original interaction text
-                notebook = i.Item(notebook_name, "An old, fragile notebook filled with faded notes and diagrams.", "You examine the notebook. It has many complex formulas and equations, but you see a giant " + pass1 + "in the center of the page.")
+                notebook = i.Item(notebook_name, "An old, fragile notebook filled with faded notes and diagrams.", "You examine the notebook. It has many complex formulas and equations, but you see a giant " + pass1 + " in the center of the page.")
                 player.add_item(notebook)
                 print("You take the tattered notebook and add it to your inventory.")
         elif (x, y) == (2, 1):
@@ -128,7 +126,7 @@ class Room:
             else:
                 # Player finds the paper
                 print(self.interactions[(2, 1)])  # Original interaction text
-                paper = i.Item(paper_name, "A torn piece of paper.", "You examine the torn piece of paper. The numbers " + pass2 + " are barely discernible, scribbled in red ink which has nearly faded.")
+                paper = i.Item(paper_name, "A torn piece of paper with some old math formulas on it.", "You examine the torn piece of paper. The number " + pass2 + " is barely discernible, scribbled in red ink which has nearly faded.")
                 player.add_item(paper)
                 print("You take the torn piece of paper and add it to your inventory.")
         elif (x, y) == (1, 2):
@@ -136,10 +134,11 @@ class Room:
             if boxUnlocked:
                 print("The box is already unlocked. There is nothing more for you to do here.")
             else:
-                code = input("Enter the code: ")
+                print("There is a 4-digit padlock on a closed box.")
+                code = input("What would you like to enter? ")
                 if self.check_box_code(code):
                     boxUnlocked = True
-                    crowbar = i.Item(crowbar_name, "A rusty crowbar.")
+                    crowbar = i.Item(crowbar_name, "A rusty crowbar, that looks like it has been through a lot.")
                     player.add_item(crowbar)
                     print("You unlock the box and add the crowbar to your inventory.")
                 else:
@@ -179,7 +178,7 @@ class Room:
             if player.has_item(explosive_name):
                 print("You already have the explosive device. There is nothing more for you to do here.")
             else:
-                # Player finds the notebook
+                # Player finds the explosive
                 print(self.interactions[(x, y)])  # Original interaction text
                 explosive = i.Item(explosive_name, "A very fragile explosive that could go off any time soon.", "A powerful explosive that looks like it could blow a hole in solid metal.")
                 player.add_item(explosive)
@@ -204,7 +203,7 @@ class Room:
                     ufo_explosion_text()
                     player.set_current_room(player.game.ufoUnlit)
                     player.room_location = (1, 2)
-                    UFOUnlocked = True
+                    ufoUnlocked = True
                 else:
                     print(self.interactions[(2, 0)])
         elif (x, y) in self.interactions:
@@ -240,7 +239,7 @@ class Room:
         elif (x, y) == (2, 1):
             lever3 = input("Select a setting for the lever (1-5): ")
         elif (x, y) == (2, 2):
-            if self.check_machine_code(leverCode):
+            if self.check_machine_code(str(lever1) + str(lever2) + str(lever3)):
                 print("Win")
                 quit()
             else:
