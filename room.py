@@ -187,7 +187,7 @@ class Room:
             player.room_location = (2, 0)
             print("You go back into the cabin.")
         elif (x, y) == (2, 0):
-            if UFOUnlocked:
+            if ufoUnlocked:
                 if ufoLit:
                     player.set_current_room(player.game.ufoLit)
                     player.room_location = (1, 2)
