@@ -64,7 +64,7 @@ class Room:
             return False
         
     def check_machine_code(self, code):
-        password = 235
+        password = "235"
         if code == password:
             return True
         else:
