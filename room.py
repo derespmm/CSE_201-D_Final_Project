@@ -71,12 +71,13 @@ class Room:
             return False
         
     def map(self, player):
+        if self.get_room_name() == "ufoUnlit":
+            print("It's to dark to see anything around you.")
+            return
+
         # Get the player's current coordinates in the room
         x, y = player.room_location
         
-        # Get the room's layout (either the cabin or forest)
-        layout = self.areas
-
         # Iterate over the room layout and print the map
         print(f"\n{self.room_name} Map:")
         for i in range(int(math.sqrt(self.size))):  # Loop over rows (y-axis)
@@ -170,7 +171,7 @@ class Room:
             else:
                 # Player finds the battery
                 print(self.interactions[(x, y)])  # Original interaction text
-                battery = i.Item(battery_name, "DESCRIPTION_TEXT", "EXAMINE_TEXT")
+                battery = i.Item(battery_name, "It's a quadruple A battery, it looks fully charged.", "A rare battery that looks full of charge. It almost looks alien in nature.")
                 player.add_item(battery)
                 print("You take the battery and add it to your inventory.")
         elif (x, y) == (4, 2):
@@ -180,7 +181,7 @@ class Room:
             else:
                 # Player finds the notebook
                 print(self.interactions[(x, y)])  # Original interaction text
-                explosive = i.Item(explosive_name, "DESCRIPTION_TEXT", "INSPECTION_TEXT")
+                explosive = i.Item(explosive_name, "A very fragile explosive that could go off any time soon.", "A powerful explosive that looks like it could blow a hole in solid metal.")
                 player.add_item(explosive)
                 print("You take the explosive device and add it to your inventory.")
         elif (x, y) == (2, 3):

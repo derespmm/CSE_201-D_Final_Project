@@ -162,22 +162,29 @@ class Game:
                     self.player.room_location = (1, 1)
                 elif "forest" in location.lower():
                     starting = False
+                    r.forestUnlocked = True
                     self.player.current_room = self.forest
                     self.player.room_location = (2, 3)
                     print("How your in the forest at 2,3\n")
                 elif ("ufo unlit") in location.lower():
                     starting = False
+                    r.forestUnlocked = True
+                    r.ufoUnlocked = True
                     self.player.current_room = self.ufoUnlit
                     self.player.room_location = (1, 2)
                     print("you're in the ufo unlit at 1,2\n")
                 elif ("ufo lit") in location.lower():
                     starting = False
+                    r.forestUnlocked = True
+                    r.ufoUnlocked = True
+                    r.ufoLit = True
                     self.player.current_room = self.ufoLit
                     self.player.room_location = (1, 2)
                     print("you're in the ufo lit at 1,2\n")
                 else:
                     print("Incorrect input now leaving suepr hack debug moer\n")
-
+            else:
+                print("Please enter a valid command!\n")
 
         while self.running:
             cmd = input("Enter a command: ")
