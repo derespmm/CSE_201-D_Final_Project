@@ -241,6 +241,7 @@ class Room:
         elif (x, y) == (2, 2):
             if self.check_machine_code(leverCode):
                 print("Win")
+                quit()
             else:
                 print("The machine doesn't respond.")
         elif (x, y) == (1, 2):
