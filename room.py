@@ -20,6 +20,7 @@ ufoLit = False
 lever1 = 1
 lever2 = 1
 lever3 = 1
+leverCode = str(lever1) + str(lever2) + str(lever3)
 
 # A class to hold all data of various rooms, areas, descriptions, and interactable objects
 class Room:
@@ -238,8 +239,7 @@ class Room:
         elif (x, y) == (2, 1):
             lever3 = input("Select a setting for the lever (1-5): ")
         elif (x, y) == (2, 2):
-            code = input("Enter the code: ")
-            if self.check_machine_code(code):
+            if self.check_machine_code(leverCode):
                 print("Win")
             else:
                 print("The machine doesn't respond.")
