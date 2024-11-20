@@ -1,3 +1,21 @@
 # ufo_lit_layout
+You see a large table with a blue paper across it.
+There's a lever on the wall.
+There's nothing of interest here.
+There is a lever on the wall.
+The center of the ship.
+As you step into the ship, the unnatural lighting fills you with dread.
+There's nothing of interest here.
+There's a lever on the wall.
+The machine glows, displaying text in a language foreign to you.
 
 # interaction_texts
+There is a blueprint depicting a machine and three levers, set in the positions 2, 5, and 3.
+Select a setting for the lever (1-5):
+There is nothing of interest.
+Select a setting for the lever (1-5):
+There is nothing more to do here.
+You step out into the watchful forest.
+There is nothing of interest.
+Select a setting for the lever (1-5):
+You press the button, but nothing happens

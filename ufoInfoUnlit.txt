@@ -1,3 +1,22 @@
 # ufo_unlit_layout
+It's too dark to see.
+It's too dark to see.
+It's too dark to see.
+It's too dark to see.
+The light from the opening illuminates a console in the center of the room. There's an empty slot, presumably for a power source.
+You stand in front of the entrance you created.
+It's too dark to see.
+It's too dark to see.
+It's too dark to see.
 
 # interaction_texts
+It's too dark to interact with anything.
+It's too dark to interact with anything.
+It's too dark to interact with anything.
+It's too dark to interact with anything.
+You don't have anything that will fit in the slot.
+You leave the ship.
+It's too dark to interact with anything.
+It's too dark to interact with anything.
+It's too dark to interact with anything.
+

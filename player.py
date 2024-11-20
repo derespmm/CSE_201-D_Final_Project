@@ -81,6 +81,10 @@ class Player:
         elif self.current_room.get_room_name() == "Forest":
             text = "A sickly pale fog blocks your path, an unnatural glow emanating from its depths. You move to step into it, but your muscles tense, almost as though your body won't allow you to go any further."
             alt_text = "The dense foliage blocks your path."
+        elif self.current_room.get_room_name() == "ufoUnlit":
+            text = "It's just a wall."
+        elif self.current_room.get_room_name() == "ufoLit":
+            text = "It's just a wall."
         else:
             print("Invalid room or room not recognized.")
             return False

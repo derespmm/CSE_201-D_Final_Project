@@ -28,6 +28,8 @@ class Game:
     def __init__(self):
         self.cabin = self.initialize_cabin()
         self.forest = self.initialize_forest()
+        self.ufoUnlit = self.initialize_ufoUnlit()
+        self.ufoLit = self.initialize_ufoLit()
         self.player = p.Player("Jon", current_room=self.cabin, game=self)
         self.running = True
     
@@ -73,6 +75,38 @@ class Game:
                     interaction_texts[(x, y)] = forestInfo.readline().strip()
             forestInfo.readline()
         return r.Room("Forest", "Description", forest_layout, interaction_texts)
+    
+    def initialize_ufoUnlit(self):
+        ufoUnlit_layout = {}
+        interaction_texts = {}
+        with open("ufoInfoUnlit.txt", "r") as ufoInfoUnlit:
+            ufoInfoUnlit.readline()
+            for x in range(3):
+                for y in range(3):
+                    ufoUnlit_layout[(x, y)] = ufoInfoUnlit.readline().strip()
+            ufoInfoUnlit.readline()
+            ufoInfoUnlit.readline()
+            for x in range(3):
+                for y in range(3):
+                    interaction_texts[(x, y)] = ufoInfoUnlit.readline().strip()
+            ufoInfoUnlit.readline()
+        return r.Room("ufoUnlit", "Description", ufoUnlit_layout, interaction_texts)
+    
+    def initialize_ufoLit(self):
+        ufoLit_layout = {}
+        interaction_texts = {}
+        with open("ufoInfoLit.txt", "r") as ufoInfoLit:
+            ufoInfoLit.readline()
+            for x in range(3):
+                for y in range(3):
+                    ufoLit_layout[(x, y)] = ufoInfoLit.readline().strip()
+            ufoInfoLit.readline()
+            ufoInfoLit.readline()
+            for x in range(3):
+                for y in range(3):
+                    interaction_texts[(x, y)] = ufoInfoLit.readline().strip()
+            ufoInfoLit.readline()
+        return r.Room("ufoLit", "Description", ufoLit_layout, interaction_texts)
 
     # Updates to handle player commands including room transition
     def run_command(self, command: str = "exit") -> bool:
@@ -131,6 +165,16 @@ class Game:
                     self.player.current_room = self.forest
                     self.player.room_location = (2, 3)
                     print("How your in the forest at 2,3\n")
+                elif ("ufo unlit") in location.lower():
+                    starting = False
+                    self.player.current_room = self.ufoUnlit
+                    self.player.room_location = (1, 2)
+                    print("you're in the ufo unlit at 1,2\n")
+                elif ("ufo lit") in location.lower():
+                    starting = False
+                    self.player.current_room = self.ufoLit
+                    self.player.room_location = (1, 2)
+                    print("you're in the ufo lit at 1,2\n")
                 else:
                     print("Incorrect input now leaving suepr hack debug moer\n")
 
