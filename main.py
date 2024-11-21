@@ -56,7 +56,7 @@ class Game:
                 for y in range(3):
                     interaction_texts[(x, y)] = cabinInfo.readline().strip()
             cabinInfo.readline()
-        return r.Room("Cabin", "A dimly lit, cramped cabin.", cabin_layout, interaction_texts)
+        return r.Room("Cabin", "A dimly lit, cramped cabin.", cabin_layout, interaction_texts, self.game_map)
     
     # Initialize forest layout and interaction texts from file
     def initialize_forest(self):
@@ -73,8 +73,8 @@ class Game:
                 for y in range(5):
                     interaction_texts[(x, y)] = forestInfo.readline().strip()
             forestInfo.readline()
-        return r.Room("Forest", "Description", forest_layout, interaction_texts)
-    
+        return r.Room("Forest", "Description", forest_layout, interaction_texts, self.game_map)
+
     def initialize_ufoUnlit(self):
         ufoUnlit_layout = {}
         interaction_texts = {}
@@ -89,8 +89,8 @@ class Game:
                 for y in range(3):
                     interaction_texts[(x, y)] = ufoInfoUnlit.readline().strip()
             ufoInfoUnlit.readline()
-        return r.Room("ufoUnlit", "Description", ufoUnlit_layout, interaction_texts)
-    
+        return r.Room("ufoUnlit", "Description", ufoUnlit_layout, interaction_texts, self.game_map)
+
     def initialize_ufoLit(self):
         ufoLit_layout = {}
         interaction_texts = {}
@@ -105,7 +105,7 @@ class Game:
                 for y in range(3):
                     interaction_texts[(x, y)] = ufoInfoLit.readline().strip()
             ufoInfoLit.readline()
-        return r.Room("ufoLit", "Description", ufoLit_layout, interaction_texts)
+        return r.Room("ufoLit", "Description", ufoLit_layout, interaction_texts, self.game_map)
 
     # Updates to handle player commands including room transition
     def run_command(self, command: str = "exit") -> bool:
@@ -186,21 +186,48 @@ class Game:
         print("[ENTERING SUPER HACKER DEBUG MODE!!!]")
         location = input("What room do you want to start in? ")
         if "cabin" in location.lower():
-            print("Now you're in the cabin at 1,1\n")
+            print("You're in the cabin at 1,1\n")
             self.player.current_room = self.cabin
             self.player.room_location = (1, 1)
+            self.game_map.mark_explored(
+                self.player.current_room.get_room_name(),
+                self.player.room_location
+            )
+            self.game_map.draw_room(
+                self.player.current_room.get_room_name(),
+                self.player.room_location,
+                self.player.current_room.areas
+            )
             return False
         elif "forest" in location.lower():
             r.forestUnlocked = True
             self.player.current_room = self.forest
             self.player.room_location = (2, 3)
-            print("Now you're in the forest at 2,3\n")
+            self.game_map.mark_explored(
+                self.player.current_room.get_room_name(),
+                self.player.room_location
+            )
+            self.game_map.draw_room(
+                self.player.current_room.get_room_name(),
+                self.player.room_location,
+                self.player.current_room.areas
+            )
+            print("You're in the forest at 2,3\n")
             return False
         elif ("ufo unlit") in location.lower():
             r.forestUnlocked = True
             r.ufoUnlocked = True
             self.player.current_room = self.ufoUnlit
             self.player.room_location = (1, 2)
+            self.game_map.mark_explored(
+                self.player.current_room.get_room_name(),
+                self.player.room_location
+            )
+            self.game_map.draw_room(
+                self.player.current_room.get_room_name(),
+                self.player.room_location,
+                self.player.current_room.areas
+            )
             print("Now you're in the ufo unlit at 1,2\n")
             return False
         elif ("ufo lit") in location.lower():
@@ -209,10 +236,19 @@ class Game:
             r.ufoLit = True
             self.player.current_room = self.ufoLit
             self.player.room_location = (1, 2)
-            print("you're in the ufo lit at 1,2\n")
+            self.game_map.mark_explored(
+                self.player.current_room.get_room_name(),
+                self.player.room_location
+            )
+            self.game_map.draw_room(
+                self.player.current_room.get_room_name(),
+                self.player.room_location,
+                self.player.current_room.areas
+            )
+            print("You're in the lit ufo at 1,2\n")
             return False
         else:
-            print("Incorrect input now leaving suepr hack debug moer\n")
+            print("Incorrect input now leaving super hack debug mode\n")
             return True
 
 
