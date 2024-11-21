@@ -1,3 +1,10 @@
+# Class: GameMap
+# Authors: Matt DeRespinis, Teddy Simpson, Dylan Kendall, Noah Arnold, Natalie Taylor, Nolan Burney 
+# Version 1.0 
+# Course: CSE 201 Fall 2024
+# Written: November 2024
+# Purpose: Uses pygame to create visuals within the game. 
+
 try:
     import pygame
 except ImportError:
@@ -8,7 +15,7 @@ from queue import Queue
 import time
 
 class GameMap:
-    def __init__(self, screen_width: int = 800, screen_height: int = 800):
+    def __init__(self, screen_width: int = 600, screen_height: int = 600):
         self.screen_width = screen_width
         self.screen_height = screen_height
         self.running = True
