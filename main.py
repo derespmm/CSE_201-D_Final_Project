@@ -40,13 +40,13 @@ class Game:
         interaction_texts = {}
         with open("cabinInfo.txt", "r") as cabinInfo:
             cabinInfo.readline()
-            for x in [0, 1, 2]:
-                for y in [0, 1, 2]:
+            for x in range(3):
+                for y in range(3):
                     cabin_layout[(x, y)] = cabinInfo.readline().strip()
             cabinInfo.readline()
             cabinInfo.readline()
-            for x in [0, 1, 2]:
-                for y in [0, 1, 2]:
+            for x in range(3):
+                for y in range(3):
                     interaction_texts[(x, y)] = cabinInfo.readline().strip()
             cabinInfo.readline()
         return r.Room("Cabin", "A dimly lit, cramped cabin.", cabin_layout, interaction_texts)
