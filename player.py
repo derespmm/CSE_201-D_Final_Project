@@ -54,20 +54,25 @@ class Player:
 
     # Prints items in the inventory, if empty "Your inventory is empty" will be printed.
     def print_inventory(self):
+        # If inventory is empty
         if not self.item_inventory:
             print("Your inventory is empty.")
+        # If inventory is not empty
         else:
             print("You have the following items in your inventory:")
+            # Loops through items in inventory and prints them individually
             for item in self.item_inventory:
                 print(f"- {item.get_name()}: {item.get_description()}")
     
     # Inspect an item in the inventory and display its description.
     # param item_name: a string representing the item name.
     def inspect_item(self, item_name: str):
+        # Loops through items in inventory
         for item in self.item_inventory:
             if item.get_name().lower() == item_name.lower():
                 print(item.get_inspection_text())
                 return
+        # prints if no items are present
         print(f"You don't have an item named '{item_name}' in your inventory.")
 
     # Moves the player
@@ -76,15 +81,20 @@ class Player:
     def move(self, direction: str) -> bool:
         text = ""
         alt_text = ""
+        # For cabin
         if self.current_room.get_room_name() == "Cabin":
             text = "It's just a wall."
+        # For forest
         elif self.current_room.get_room_name() == "Forest":
             text = "A sickly pale fog blocks your path, an unnatural glow emanating from its depths. You move to step into it, but your muscles tense, almost as though your body won't allow you to go any further."
             alt_text = "The dense foliage blocks your path."
+        # For UFO before it is lit
         elif self.current_room.get_room_name() == "ufoUnlit":
             text = "It's just a wall."
+        # For UFO after it is lit
         elif self.current_room.get_room_name() == "ufoLit":
             text = "It's just a wall."
+        # Unknown room
         else:
             print("Invalid room or room not recognized.")
             return False
@@ -93,34 +103,44 @@ class Player:
         new_x, new_y = x, y  # Default to current position
 
         # Determine new position based on the direction
+        # Moving left/west
         if "left" in direction.lower() or "west" in direction.lower():
             if x > 0:
                 new_x -= 1
+            # Can't move left/west
             else:
                 print(text)
                 return False
+        # Moving right/east
         elif "right" in direction.lower() or "east" in direction.lower():
             if x < self.current_room.size - 1:
                 new_x += 1
+            # Can't move right/east
             else:
                 print(text)
                 return False
+        # Moving up/north
         elif "up" in direction.lower() or "north" in direction.lower():
             if y > 0:
                 new_y -= 1
+            # Can't move up/north
             else:
                 print(text)
                 return False
+        # Moving down/south
         elif "down" in direction.lower() or "south" in direction.lower():
             if y < self.current_room.size - 1:
                 new_y += 1
+            # Can't move down/south
             else:
                 print(text)
                 return False
+        # Invalid Input
         else:
             print("Please enter a valid command!")
             return False
         
+        # If coordinates are within the room limits
         if (new_x, new_y) in self.current_room.areas:
             if self.current_room.areas[(new_x, new_y)] == "X":
                 print(alt_text)
