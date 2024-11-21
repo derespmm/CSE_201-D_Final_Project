@@ -56,7 +56,7 @@ class Game:
                 for y in [0, 1, 2]:
                     interaction_texts[(x, y)] = cabinInfo.readline().strip()
             cabinInfo.readline()
-        return r.Room("Cabin", "A dimly lit, cramped cabin.", cabin_layout, interaction_texts)
+        return r.Room("Cabin", "A dimly lit, cramped cabin.", cabin_layout, interaction_texts, self.game_map)
     
     # Initialize forest layout and interaction texts from file
     def initialize_forest(self):
@@ -73,8 +73,8 @@ class Game:
                 for y in range(5):
                     interaction_texts[(x, y)] = forestInfo.readline().strip()
             forestInfo.readline()
-        return r.Room("Forest", "Description", forest_layout, interaction_texts)
-    
+        return r.Room("Forest", "Description", forest_layout, interaction_texts, self.game_map)
+
     def initialize_ufoUnlit(self):
         ufoUnlit_layout = {}
         interaction_texts = {}
@@ -89,8 +89,8 @@ class Game:
                 for y in range(3):
                     interaction_texts[(x, y)] = ufoInfoUnlit.readline().strip()
             ufoInfoUnlit.readline()
-        return r.Room("ufoUnlit", "Description", ufoUnlit_layout, interaction_texts)
-    
+        return r.Room("ufoUnlit", "Description", ufoUnlit_layout, interaction_texts, self.game_map)
+
     def initialize_ufoLit(self):
         ufoLit_layout = {}
         interaction_texts = {}
@@ -105,7 +105,7 @@ class Game:
                 for y in range(3):
                     interaction_texts[(x, y)] = ufoInfoLit.readline().strip()
             ufoInfoLit.readline()
-        return r.Room("ufoLit", "Description", ufoLit_layout, interaction_texts)
+        return r.Room("ufoLit", "Description", ufoLit_layout, interaction_texts, self.game_map)
 
     # Updates to handle player commands including room transition
     def run_command(self, command: str = "exit") -> bool:
