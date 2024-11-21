@@ -70,7 +70,7 @@ class Room:
         
     def map(self, player):
         if self.get_room_name() == "ufoUnlit":
-            print("It's to dark to see anything around you.")
+            print("It's too dark to see anything around you.")
             return
 
         # Get the player's current coordinates in the room
