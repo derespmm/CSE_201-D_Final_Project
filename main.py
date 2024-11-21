@@ -10,6 +10,7 @@
 import shutil
 import player as p
 import room as r
+import os
 try:
     import pygame
 except ImportError:
@@ -19,6 +20,8 @@ from game_map import GameMap
 
 terminal_width = shutil.get_terminal_size().columns
 width = 50
+
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # Initialize game with settings and player
 class Game:
@@ -42,70 +45,106 @@ class Game:
         print("3. Quit\n")
 
     # Initialize cabin layout and interaction texts from file
+
     def initialize_cabin(self):
         cabin_layout = {}
         interaction_texts = {}
-        with open("cabinInfo.txt", "r") as cabinInfo:
+        file_path = os.path.join(SCRIPT_DIR, "cabinInfo.txt")
+        
+        with open(file_path, "r") as cabinInfo:
+            # Skip the "# cabin_layout" line
             cabinInfo.readline()
-            for x in [0, 1, 2]:
-                for y in [0, 1, 2]:
+            
+            # Read the layout section
+            for x in range(3):
+                for y in range(3):
                     cabin_layout[(x, y)] = cabinInfo.readline().strip()
+                    
+            # Skip the blank line and "# interaction_texts" line
             cabinInfo.readline()
             cabinInfo.readline()
-            for x in [0, 1, 2]:
-                for y in [0, 1, 2]:
+            
+            # Read the interaction texts
+            for x in range(3):
+                for y in range(3):
                     interaction_texts[(x, y)] = cabinInfo.readline().strip()
-            cabinInfo.readline()
+                    
         return r.Room("Cabin", "A dimly lit, cramped cabin.", cabin_layout, interaction_texts, self.game_map)
-    
-    # Initialize forest layout and interaction texts from file
+
     def initialize_forest(self):
         forest_layout = {}
         interaction_texts = {}
-        with open("forestInfo.txt", "r") as forestInfo:
+        file_path = os.path.join(SCRIPT_DIR, "forestInfo.txt")
+        
+        with open(file_path, "r") as forestInfo:
+            # Skip the "# forest_layout" line
             forestInfo.readline()
+            
+            # Read the layout section
             for x in range(5):
                 for y in range(5):
                     forest_layout[(x, y)] = forestInfo.readline().strip()
+                    
+            # Skip the blank line and "# interaction_texts" line
             forestInfo.readline()
             forestInfo.readline()
+            
+            # Read the interaction texts
             for x in range(5):
                 for y in range(5):
                     interaction_texts[(x, y)] = forestInfo.readline().strip()
-            forestInfo.readline()
-        return r.Room("Forest", "Description", forest_layout, interaction_texts, self.game_map)
+                    
+        return r.Room("Forest", "A dark and foreboding forest.", forest_layout, interaction_texts, self.game_map)
 
     def initialize_ufoUnlit(self):
         ufoUnlit_layout = {}
         interaction_texts = {}
-        with open("ufoInfoUnlit.txt", "r") as ufoInfoUnlit:
+        file_path = os.path.join(SCRIPT_DIR, "ufoInfoUnlit.txt")
+        
+        with open(file_path, "r") as ufoInfoUnlit:
+            # Skip the "# ufo_unlit_layout" line
             ufoInfoUnlit.readline()
+            
+            # Read the layout section
             for x in range(3):
                 for y in range(3):
                     ufoUnlit_layout[(x, y)] = ufoInfoUnlit.readline().strip()
+                    
+            # Skip the blank line and "# interaction_texts" line
             ufoInfoUnlit.readline()
             ufoInfoUnlit.readline()
+            
+            # Read the interaction texts
             for x in range(3):
                 for y in range(3):
                     interaction_texts[(x, y)] = ufoInfoUnlit.readline().strip()
-            ufoInfoUnlit.readline()
-        return r.Room("ufoUnlit", "Description", ufoUnlit_layout, interaction_texts, self.game_map)
+                    
+        return r.Room("ufoUnlit", "A dark, mysterious structure.", ufoUnlit_layout, interaction_texts, self.game_map)
 
     def initialize_ufoLit(self):
         ufoLit_layout = {}
         interaction_texts = {}
-        with open("ufoInfoLit.txt", "r") as ufoInfoLit:
+        file_path = os.path.join(SCRIPT_DIR, "ufoInfoLit.txt")
+        
+        with open(file_path, "r") as ufoInfoLit:
+            # Skip the "# ufo_lit_layout" line
             ufoInfoLit.readline()
+            
+            # Read the layout section
             for x in range(3):
                 for y in range(3):
                     ufoLit_layout[(x, y)] = ufoInfoLit.readline().strip()
+                    
+            # Skip the blank line and "# interaction_texts" line
             ufoInfoLit.readline()
             ufoInfoLit.readline()
+            
+            # Read the interaction texts
             for x in range(3):
                 for y in range(3):
                     interaction_texts[(x, y)] = ufoInfoLit.readline().strip()
-            ufoInfoLit.readline()
-        return r.Room("ufoLit", "Description", ufoLit_layout, interaction_texts, self.game_map)
+                    
+        return r.Room("ufoLit", "An illuminated alien structure.", ufoLit_layout, interaction_texts, self.game_map)
 
     # Updates to handle player commands including room transition
     def run_command(self, command: str = "exit") -> bool:
