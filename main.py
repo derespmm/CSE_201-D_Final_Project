@@ -11,7 +11,11 @@ import shutil
 import player as p
 import room as r
 import os
-import utils as u
+try:
+    import pygame
+except ImportError:
+    pygame = None
+from utils import *
 from game_map import GameMap
 
 terminal_width = shutil.get_terminal_size().columns
@@ -21,6 +25,7 @@ SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # Initialize game with settings and player
 class Game:
+
     def __init__(self):
         self.game_map = GameMap()
         self.cabin = self.initialize_cabin()
@@ -167,7 +172,7 @@ class Game:
             else:
                 print("There is no room to interact with.")
         elif "help" in command.lower():
-            u.display_help()
+            help()
         elif "map" in command.lower():
             self.player.current_room.map(self.player)
         elif "exit" in command.lower() or "quit" in command.lower():
@@ -186,7 +191,7 @@ class Game:
             if start == "1" or "new game" in start.lower():
                 starting = False
                 print("Starting a new game!")
-                u.wake_up_flavor_text()
+                wake_up_flavor_text()
                 self.player.room_location = (1, 1)
                 self.game_map.mark_explored(self.player.current_room.get_room_name(), (1, 1))
                 self.game_map.draw_room(
