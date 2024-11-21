@@ -1,3 +1,9 @@
+# Authors: Matt DeRespinis, Teddy Simpson, Dylan Kendall, Noah Arnold, Natalie Taylor, Nolan Burney 
+# Version 1.0 
+# Course: CSE 201 Fall 2024
+# Written: November 2024
+# Purpose: A class to hold player character, location, and inventory. 
+
 import sys
 import time
 
@@ -8,7 +14,7 @@ def cool_print(text, delay=0.05):
         time.sleep(delay)
     print()
 
-def help():
+def display_help():
     print("Valid commands: ")
     print("\"help\" - display this help message")
     print("\"move [DIRECTION]\" - move in that direction")

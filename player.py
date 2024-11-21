@@ -39,6 +39,7 @@ class Player:
     # Returns bool: if item is removed from inventory -> true, 
     # o.w -> false.
     def remove_item(self, item: i.Item) -> bool:
+        # If item is in inventory
         if item in self.item_inventory:
             self.item_inventory.remove(item)
             return True
@@ -57,10 +58,17 @@ class Player:
         # If inventory is empty
         if not self.item_inventory:
             print("Your inventory is empty.")
+<<<<<<< HEAD
         # If inventory is not empty
         else:
             print("You have the following items in your inventory:")
             # Loops through items in inventory and prints them individually
+=======
+        # If an item is in the inventory
+        else:
+            print("You have the following items in your inventory:")
+            # Loops through items in the inventory
+>>>>>>> 004ed279820d11da97dd61c098cfdadf599bcc45
             for item in self.item_inventory:
                 print(f"- {item.get_name()}: {item.get_description()}")
     
@@ -72,7 +80,11 @@ class Player:
             if item.get_name().lower() == item_name.lower():
                 print(item.get_inspection_text())
                 return
+<<<<<<< HEAD
         # prints if no items are present
+=======
+        # If the item is not found in inventory
+>>>>>>> 004ed279820d11da97dd61c098cfdadf599bcc45
         print(f"You don't have an item named '{item_name}' in your inventory.")
 
     # Moves the player
@@ -81,6 +93,7 @@ class Player:
     def move(self, direction: str) -> bool:
         text = ""
         alt_text = ""
+<<<<<<< HEAD
         # For cabin
         if self.current_room.get_room_name() == "Cabin":
             text = "It's just a wall."
@@ -95,6 +108,22 @@ class Player:
         elif self.current_room.get_room_name() == "ufoLit":
             text = "It's just a wall."
         # Unknown room
+=======
+        # Cabin
+        if self.current_room.get_room_name() == "Cabin":
+            text = "It's just a wall."
+        # Forest
+        elif self.current_room.get_room_name() == "Forest":
+            text = "A sickly pale fog blocks your path, an unnatural glow emanating from its depths. You move to step into it, but your muscles tense, almost as though your body won't allow you to go any further."
+            alt_text = "The dense foliage blocks your path."
+        # UFO unlit
+        elif self.current_room.get_room_name() == "ufoUnlit":
+            text = "It's just a wall."
+        # UFO lit
+        elif self.current_room.get_room_name() == "ufoLit":
+            text = "It's just a wall."
+        # Invalid room
+>>>>>>> 004ed279820d11da97dd61c098cfdadf599bcc45
         else:
             print("Invalid room or room not recognized.")
             return False

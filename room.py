@@ -8,7 +8,7 @@
 import item as i
 import random
 import math
-from utils import *
+import utils as u
 
 pass1 = str(random.randint(10, 99))
 pass2 = str(random.randint(10, 99))
@@ -153,7 +153,7 @@ class Room:
                 print("You go back into the forest.")
             else:
                 if player.has_item("crowbar"):
-                    cabin_to_forest_transitional_text()
+                    u.cabin_to_forest_transitional_text()
                     player.set_current_room(player.game.forest)  # Assuming player has a reference to the game object
                     player.room_location = (2, 3)
                     forestUnlocked = True
@@ -210,7 +210,7 @@ class Room:
             else:
                 if player.has_item("explosive"):
                     player.remove_item("explosive")
-                    ufo_explosion_text()
+                    u.ufo_explosion_text()
                     player.set_current_room(player.game.ufoUnlit)
                     player.room_location = (1, 2)
                     ufoUnlocked = True
@@ -224,7 +224,7 @@ class Room:
     def interact_with_area_ufoUnlit(self, x, y, player):
         if (x, y) == (1, 1):
             if player.has_item("battery"):
-                ufo_lit_text()
+                u.ufo_lit_text()
                 player.set_current_room(player.game.ufoLit)
                 player.room_location = (1, 1)
             else:
