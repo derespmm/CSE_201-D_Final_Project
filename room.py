@@ -119,6 +119,7 @@ class Room:
                 notebook = i.Item(notebook_name, "An old, fragile notebook filled with faded notes and diagrams.", "You examine the notebook. It has many complex formulas and equations, but you see a giant " + pass1 + " in the center of the page.")
                 player.add_item(notebook)
                 print("You take the tattered notebook and add it to your inventory.")
+                self.game_map.mark_item_found("Cabin", (x, y))
         elif (x, y) == (2, 1):
             paper_name = "paper"
             if player.has_item(paper_name):
@@ -129,6 +130,7 @@ class Room:
                 paper = i.Item(paper_name, "A torn piece of paper with some old math formulas on it.", "You examine the torn piece of paper. The number " + pass2 + " is barely discernible, scribbled in red ink which has nearly faded.")
                 player.add_item(paper)
                 print("You take the torn piece of paper and add it to your inventory.")
+                self.game_map.mark_item_found("Cabin", (x, y))
         elif (x, y) == (1, 2):
             crowbar_name = "crowbar"
             if boxUnlocked:

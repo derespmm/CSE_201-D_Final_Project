@@ -10,14 +10,21 @@
 import shutil
 import player as p
 import room as r
+try:
+    import pygame
+except ImportError:
+    pygame = None
 from utils import *
+from game_map import GameMap
 
 terminal_width = shutil.get_terminal_size().columns
 width = 50
 
 # Initialize game with settings and player
 class Game:
+
     def __init__(self):
+        self.game_map = GameMap()
         self.cabin = self.initialize_cabin()
         self.forest = self.initialize_forest()
         self.ufoUnlit = self.initialize_ufoUnlit()
@@ -103,7 +110,16 @@ class Game:
     # Updates to handle player commands including room transition
     def run_command(self, command: str = "exit") -> bool:
         if "move" in command.lower():
-            self.player.move(command)
+            if self.player.move(command):
+                self.game_map.mark_explored(
+                    self.player.current_room.get_room_name(),
+                    self.player.room_location
+                )
+                self.game_map.draw_room(
+                    self.player.current_room.get_room_name(),
+                    self.player.room_location,
+                    self.player.current_room.areas
+                )
         elif "inventory" in command.lower():
             self.player.print_inventory()
         elif "inspect" in command.lower() or "examine" in command.lower():
@@ -138,6 +154,12 @@ class Game:
                 print("Starting a new game!")
                 wake_up_flavor_text()
                 self.player.room_location = (1, 1)
+                self.game_map.mark_explored(self.player.current_room.get_room_name(), (1, 1))
+                self.game_map.draw_room(
+                    self.player.current_room.get_room_name(),
+                    self.player.room_location,
+                    self.player.current_room.areas
+                )
             elif start == "2" or "help" in start.lower():
                 help()
             elif start == "3" or "quit" in start.lower():
@@ -150,14 +172,21 @@ class Game:
                 print("Please enter a valid command!\n")
 
         while self.running:
+            if not self.game_map.handle_events():
+                self.running = False
+                break
+                    
             cmd = input("Enter a command: ")
             self.running = self.run_command(cmd)
+    
+        self.game_map.close()
+
 
     def debug_mode(self):
         print("[ENTERING SUPER HACKER DEBUG MODE!!!]")
         location = input("What room do you want to start in? ")
         if "cabin" in location.lower():
-            print("Now you'r in the cabin at 1,1\n")
+            print("Now you're in the cabin at 1,1\n")
             self.player.current_room = self.cabin
             self.player.room_location = (1, 1)
             return False
@@ -165,14 +194,14 @@ class Game:
             r.forestUnlocked = True
             self.player.current_room = self.forest
             self.player.room_location = (2, 3)
-            print("How your in the forest at 2,3\n")
+            print("Now you're in the forest at 2,3\n")
             return False
         elif ("ufo unlit") in location.lower():
             r.forestUnlocked = True
             r.ufoUnlocked = True
             self.player.current_room = self.ufoUnlit
             self.player.room_location = (1, 2)
-            print("you're in the ufo unlit at 1,2\n")
+            print("Now you're in the ufo unlit at 1,2\n")
             return False
         elif ("ufo lit") in location.lower():
             r.forestUnlocked = True
