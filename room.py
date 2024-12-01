@@ -52,16 +52,20 @@ class Room:
         else:
             print("Invalid area coordinates.")
             return False
-        
+    
+    # Checks if the box code is correct.
     # Returns true if code is correct, false o.w.
     def check_box_code(self, code):
         password1 = pass1 + pass2
         password2 = pass2 + pass1
+        # Checks if password is correct.
         if code == password1 or code == password2:
             return True
         else:
             return False
-        
+
+    # Checks if the machine code is correct.
+    # Returns True if code is correct, false o.w.    
     def check_machine_code(self, code):
         password = "253"
         if code == password:

@@ -6,6 +6,11 @@
 # Purpose: A class to hold data for items. 
 
 class Item:
+   
+    # Creates an item object with a name, description, and inspection text
+    # param name: a string containing the name of the item.
+    # param description: a string containing the item description.
+    # param inspection_text: a string containing text when the player finds the item.
     def __init__(self, name: str, description: str, inspection_text: str = None):
         self.name = name
         self.description = description
