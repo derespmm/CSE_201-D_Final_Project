@@ -1,6 +1,7 @@
 import sys
 import time
 
+# Creates unique output of text in console.
 def cool_print(text, delay=0.05):
     for char in text:
         sys.stdout.write(char)
@@ -8,6 +9,7 @@ def cool_print(text, delay=0.05):
         time.sleep(delay)
     print()
 
+# Displays print menu.
 def help():
     print("Valid commands: ")
     print("\"help\" - display this help message")
@@ -46,6 +48,7 @@ def cabin_to_forest_transitional_text():
     cool_print("You put the notebook back in the bookshelf and step outside.\n")
     time.sleep(1)
 
+# Text when exploding the UFO door.
 def ufo_explosion_text():
     time.sleep(1)
     cool_print("\nYou arm the explosive and take off for the treeline, taking cover behind a sturdy tree.")
@@ -56,6 +59,7 @@ def ufo_explosion_text():
     time.sleep(2)
     cool_print("You approach the opening and step inside.")
 
+# Text when entering the battery into the UFO.
 def ufo_lit_text():
     time.sleep(1)
     cool_print("\nYou put the battery in the slot.")

@@ -98,8 +98,10 @@ class Room:
         print("H: You Are Here")
         print("O: Accessible Tile")
         print("X: Inaccessible Tile")
-        
+
+    # Allows the player to interact with the x, y coordinate.    
     def interact_with_area(self, x, y, player):
+        # If player is in the certain room.
         if self.room_name == "Cabin":
             self.interact_with_area_cabin(x, y, player)
         elif self.room_name == "Forest":
@@ -138,16 +140,20 @@ class Room:
                 self.game_map.mark_item_found("Cabin", (x, y))
         elif (x, y) == (1, 2):
             crowbar_name = "crowbar"
+            # Box has already been unlocked.
             if boxUnlocked:
                 print("The box is already unlocked. There is nothing more for you to do here.")
+            # Box needs to be unlocked / code needs entered.
             else:
                 print("There is a 4-digit padlock on a closed box.")
                 code = input("What would you like to enter? ")
+                # Code is correct.
                 if self.check_box_code(code):
                     boxUnlocked = True
                     crowbar = i.Item(crowbar_name, "A rusty crowbar, that looks like it has been through a lot.")
                     player.add_item(crowbar)
                     print("You unlock the box and add the crowbar to your inventory.")
+                # Wrong code was entered by user.
                 else:
                     print("The lock doesn't budge.")
         elif (x, y) == (2, 0):
@@ -167,12 +173,15 @@ class Room:
             print(self.interactions[(x, y)])  # General interactions for other tiles
         else:
             print("There is nothing to interact with here.")
-
+    
+    # Allows player to interact with x, y coordinates in forest.
     def interact_with_area_forest(self, x, y, player):
         if (x, y) == (0, 3):
             battery_name = "battery"
+            # Player already has bettery in inventory.
             if player.has_item(battery_name):
                 print("You already have the battery. There is nothing more for you to do here.")
+            # Player needs to add battery to inventory.
             else:
                 print(self.interactions[(x, y)])
                 battery = i.Item(battery_name, "It's a quadruple A battery, it looks fully charged.", "A rare battery that looks full of charge. It almost looks alien in nature.")
@@ -182,8 +191,10 @@ class Room:
                     self.game_map.mark_item_found("Forest", (x, y))
         elif (x, y) == (4, 2):
             explosive_name = "explosive"
+            # Player already has explosive in inventory.
             if player.has_item(explosive_name):
                 print("You already have the explosive device. There is nothing more for you to do here.")
+            # Player needs to add explosive to inventory.
             else:
                 print(self.interactions[(x, y)])
                 explosive = i.Item(explosive_name, "A very fragile explosive that could go off any time soon.", "A powerful explosive that looks like it could blow a hole in solid metal.")
@@ -196,15 +207,15 @@ class Room:
             player.room_location = (2, 0)
             print("You go back into the cabin.")
         elif (x, y) == (2, 0):
-            if ufoUnlocked:
-                if ufoLit:
+            if ufoUnlocked: # Only if UFO is unlocked.
+                if ufoLit: # Only if UFO is lit.
                     player.set_current_room(player.game.ufoLit)
                     player.room_location = (1, 2)
                     if self.game_map:
                         self.game_map.mark_explored("ufoLit", (1, 2))
                         self.game_map.draw_room("ufoLit", (1, 2), player.game.ufoLit.areas)
                     print("You step back into the UFO.")
-                else:
+                else: # UFO is NOT lit.
                     player.set_current_room(player.game.ufoUnlit)
                     player.room_location = (1, 2)
                     if self.game_map:
@@ -212,6 +223,7 @@ class Room:
                         self.game_map.draw_room("ufoUnlit", (1, 2), player.game.ufoUnlit.areas)
                     print("You step back into the UFO.")
             else:
+                # Exploding the UFO to Enter.
                 if player.has_item("explosive"):
                     player.remove_item("explosive")
                     ufo_explosion_text()
@@ -224,15 +236,18 @@ class Room:
             print(self.interactions[(x, y)])
         else:
             print("There is nothing to interact with here.")
-
+    
+    # Allows player to interact with UFO NOT lit.
     def interact_with_area_ufoUnlit(self, x, y, player):
         if (x, y) == (1, 1):
+            # Player lights up the UFO.
             if player.has_item("battery"):
                 ufo_lit_text()
                 player.set_current_room(player.game.ufoLit)
                 player.room_location = (1, 1)
             else:
                 print(self.interactions[(1, 1)])
+        # Player goes back to forest.
         elif (x, y) == (1, 2):
             player.set_current_room(player.game.forest)
             player.room_location = (2, 0)
@@ -241,7 +256,8 @@ class Room:
             print(self.interactions[(x, y)])
         else:
             print("There is nothing to interact with here.")
-
+    
+    # Allows player to interact with lit UFO.
     def interact_with_area_ufoLit(self, x, y, player):
         global lever1
         global lever2
@@ -253,12 +269,14 @@ class Room:
         elif (x, y) == (2, 1):
             lever3 = input("Select a setting for the lever (1-5): ")
         elif (x, y) == (2, 2):
+            # Code is correct.
             if self.check_machine_code(str(lever1) + str(lever2) + str(lever3)):
                 print("Win")
                 quit()
+            # Code is wrong.
             else:
                 print("The machine doesn't respond.")
-        elif (x, y) == (1, 2):
+        elif (x, y) == (1, 2): # Back to the forest
             player.set_current_room(player.game.forest)
             player.room_location = (2, 0)
             print("You go back into the forest.")
