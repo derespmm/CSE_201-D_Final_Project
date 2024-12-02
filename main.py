@@ -169,6 +169,14 @@ class Game:
                 # Directly call interact_with_area for the player's current room and location
                 x, y = self.player.room_location
                 self.player.current_room.interact_with_area(x, y, self.player)
+
+                # To make the map update upon switching rooms
+                self.game_map.draw_room(
+                    self.player.current_room.get_room_name(),
+                    self.player.room_location,
+                    self.player.current_room.areas
+                )
+
             else:
                 print("There is no room to interact with.")
         elif "help" in command.lower():

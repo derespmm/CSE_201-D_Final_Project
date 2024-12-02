@@ -8,7 +8,7 @@ from queue import Queue
 import time
 
 class GameMap:
-    def __init__(self, screen_width: int = 800, screen_height: int = 800):
+    def __init__(self, screen_width: int = 400, screen_height: int = 400):
         self.screen_width = screen_width
         self.screen_height = screen_height
         self.running = True
