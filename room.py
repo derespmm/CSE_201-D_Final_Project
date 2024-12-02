@@ -115,6 +115,8 @@ class Room:
     def interact_with_area_cabin(self, x, y, player):
         global boxUnlocked
         global forestUnlocked
+        global ufoUnlocked
+        global ufoLit
         if (x, y) == (0, 1):
             notebook_name = "notebook"
             if player.has_item(notebook_name):
@@ -176,6 +178,10 @@ class Room:
     
     # Allows player to interact with x, y coordinates in forest.
     def interact_with_area_forest(self, x, y, player):
+        global boxUnlocked
+        global forestUnlocked
+        global ufoUnlocked
+        global ufoLit
         if (x, y) == (0, 3):
             battery_name = "battery"
             # Player already has bettery in inventory.
@@ -239,6 +245,10 @@ class Room:
     
     # Allows player to interact with UFO NOT lit.
     def interact_with_area_ufoUnlit(self, x, y, player):
+        global boxUnlocked
+        global forestUnlocked
+        global ufoUnlocked
+        global ufoLit
         if (x, y) == (1, 1):
             # Player lights up the UFO.
             if player.has_item("battery"):
@@ -259,6 +269,10 @@ class Room:
     
     # Allows player to interact with lit UFO.
     def interact_with_area_ufoLit(self, x, y, player):
+        global boxUnlocked
+        global forestUnlocked
+        global ufoUnlocked
+        global ufoLit
         global lever1
         global lever2
         global lever3
