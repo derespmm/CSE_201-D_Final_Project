@@ -23,6 +23,15 @@ lever3 = 1
 # A class to hold all data of various rooms, areas, descriptions, and interactable objects
 class Room:
     def __init__(self, room_name: str, room_description, areas, interaction_texts, game_map=None):
+        """
+        Initialize a Room object with a name, description, layout, interactions, and an optional game map.
+
+        :param room_name: The name of the room.
+        :param room_description: A description of the room.
+        :param areas: A 2D list representing areas within the room.
+        :param interaction_texts: A dictionary containing interaction texts for each area.
+        :param game_map: An optional game map associated with the room.
+        """
         self.room_name = room_name                # Room name
         self.room_description = room_description  # Room description
         self.areas = areas                        # 2D list of areas within the room
@@ -32,20 +41,45 @@ class Room:
 
     # Returns the current room
     def get_room_name(self) -> str:
+        """
+        Returns the name of the current room.
+
+        :return: The name of the current room
+        """
         return self.room_name
  
     # Returns the current room description
     def get_room_description(self) -> str:
+        """
+        Returns the description of the current room.
+
+        :return: A string representing the description of the room.
+        """
         return self.room_description
     
     # Prints the room the player is travelling to
     def go_to_room(self) -> bool:
+        """
+        Prints the room the player is travelling to and returns True.
+
+        :return: True indicating a successful room transition
+        """
         print(f"Going to {self.room_name}")
         return True
 
     # Returns true if coordinate is in bounds, false o.w.
     def enter_area(self, x, y):
-        # Check if the given coordinates exist in the layout
+        """
+        Attempt to enter an area with the specified coordinates.
+
+        This function checks if the given coordinates (x, y) are within the valid areas of
+        the room. If the coordinates are valid, it prints a message indicating the area being
+        entered and returns True. Otherwise, it prints an error message and returns False.
+
+        :param x: The x-coordinate of the area to enter.
+        :param y: The y-coordinate of the area to enter.
+        :return: True if the area is valid and entered, False otherwise.
+        """
         if (x, y) in self.areas:
             print(f"Entering area at ({x}, {y}): {self.areas[(x, y)]}")
             return True
@@ -56,6 +90,16 @@ class Room:
     # Checks if the box code is correct.
     # Returns true if code is correct, false o.w.
     def check_box_code(self, code):
+        """
+        Checks if the provided code is correct for the box.
+
+        The correct code is a combination of two passwords in either order.
+        It compares the given code against two possible combinations:
+        password1 and password2.
+
+        :param code: The code to be checked.
+        :return: True if the code is correct, False otherwise.
+        """
         password1 = pass1 + pass2
         password2 = pass2 + pass1
         # Checks if password is correct.
@@ -67,6 +111,16 @@ class Room:
     # Checks if the machine code is correct.
     # Returns True if code is correct, false o.w.    
     def check_machine_code(self, code):
+        """
+        Checks if the provided code matches the machine's expected code.
+
+        This function compares the input code against the predefined machine
+        password. If the input code matches the password, it returns True,
+        indicating that the code is correct. Otherwise, it returns False.
+
+        :param code: The code to be validated.
+        :return: True if the input code matches the machine password, False otherwise.
+        """
         password = "253"
         if code == password:
             return True
@@ -74,6 +128,15 @@ class Room:
             return False
         
     def map(self, player):
+        """
+        Prints a map of the current room, with the player's position marked as "H",
+        accessible tiles marked as "O", and inaccessible tiles marked as "X".
+
+        If the current room is the UFO (unlit), it prints a message indicating that
+        it is too dark to see anything.
+
+        :param player: The player object to get the current room location from.
+        """
         if self.get_room_name() == "ufoUnlit":
             print("It's too dark to see anything around you.")
             return
@@ -102,6 +165,17 @@ class Room:
     # Allows the player to interact with the x, y coordinate.    
     def interact_with_area(self, x, y, player):
         # If player is in the certain room.
+        """
+        Allows the player to interact with the area at the given coordinates (x, y)
+        within the current room.
+
+        Depending on the room the player is currently in, this function delegates
+        the interaction to the appropriate room-specific interaction method.
+
+        :param x: The x-coordinate of the area to interact with.
+        :param y: The y-coordinate of the area to interact with.
+        :param player: The player object that is performing the interaction.
+        """
         if self.room_name == "Cabin":
             self.interact_with_area_cabin(x, y, player)
         elif self.room_name == "Forest":
@@ -113,6 +187,18 @@ class Room:
     
     # Allows user to interact with specific areas.
     def interact_with_area_cabin(self, x, y, player):
+        """
+        Allows the player to interact with the area at the given coordinates (x, y)
+        within the Cabin room.
+
+        Depending on the coordinates, this function will either allow the player to
+        find the notebook, find the paper, unlock the box, or traverse to the forest
+        if the box has been unlocked.
+
+        :param x: The x-coordinate of the area to interact with.
+        :param y: The y-coordinate of the area to interact with.
+        :param player: The player object that is performing the interaction.
+        """
         global boxUnlocked
         global forestUnlocked
         global ufoUnlocked
@@ -178,6 +264,18 @@ class Room:
     
     # Allows player to interact with x, y coordinates in forest.
     def interact_with_area_forest(self, x, y, player):
+        """
+        Allows the player to interact with the area at the given coordinates (x, y)
+        within the Forest room.
+
+        Depending on the coordinates, this function will either allow the player to
+        find the battery, find the explosive device, traverse to the cabin, or
+        traverse to the UFO if the UFO has been unlocked.
+
+        :param x: The x-coordinate of the area to interact with.
+        :param y: The y-coordinate of the area to interact with.
+        :param player: The player object that is performing the interaction.
+        """
         global boxUnlocked
         global forestUnlocked
         global ufoUnlocked
@@ -245,6 +343,16 @@ class Room:
     
     # Allows player to interact with UFO NOT lit.
     def interact_with_area_ufoUnlit(self, x, y, player):
+        """
+        Allows the player to interact with the unlit UFO room at the given coordinates (x, y).
+
+        Depending on the coordinates, this function will either allow the player to
+        light up the UFO if they have a battery, or traverse back to the forest room.
+
+        :param x: The x-coordinate of the area to interact with.
+        :param y: The y-coordinate of the area to interact with.
+        :param player: The player object that is performing the interaction.
+        """
         global boxUnlocked
         global forestUnlocked
         global ufoUnlocked
@@ -269,6 +377,16 @@ class Room:
     
     # Allows player to interact with lit UFO.
     def interact_with_area_ufoLit(self, x, y, player):
+        """
+        Allows the player to interact with the lit UFO room at the given coordinates (x, y).
+
+        Depending on the coordinates, this function will either allow the player to
+        set one of the levers, check the machine code, or traverse back to the forest room.
+
+        :param x: The x-coordinate of the area to interact with.
+        :param y: The y-coordinate of the area to interact with.
+        :param player: The player object that is performing the interaction.
+        """
         global boxUnlocked
         global forestUnlocked
         global ufoUnlocked

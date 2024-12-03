@@ -27,6 +27,11 @@ SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 class Game:
 
     def __init__(self):
+        """
+        Initialize the Game class with default settings, including the game map,
+        rooms (cabin, forest, ufoUnlit, ufoLit), a player instance named "Jon",
+        and set the game running state to True.
+        """
         self.game_map = GameMap()
         self.cabin = self.initialize_cabin()
         self.forest = self.initialize_forest()
@@ -37,6 +42,15 @@ class Game:
     
     # Prints the title screen
     def title_screen(self):
+        """
+        Prints the title screen of Unearthed Echoes.
+
+        The title screen displays the game title, "Unearthed Echoes", centered
+        within a border of "=" characters. Below the title, it displays a list of
+        options for the user to select: "New Game", "Help", and "Quit".
+
+        :return: None
+        """
         print("+================================================+")
         print(str.center("Welcome to Unearthed Echoes", width))
         print("+================================================+")
@@ -47,6 +61,16 @@ class Game:
     # Initialize cabin layout and interaction texts from file
 
     def initialize_cabin(self):
+        """
+        Initialize the cabin room by reading its layout and interaction texts from a file.
+
+        This function reads data from "cabinInfo.txt" to set up the cabin's layout and
+        interaction texts. The file is expected to have a specific format where the first
+        section represents the cabin layout and the second section contains the interaction
+        texts. Each section is read into a dictionary with coordinates as keys.
+
+        :return: A Room object representing the cabin with its layout and interactions.
+        """
         cabin_layout = {}
         interaction_texts = {}
         file_path = os.path.join(SCRIPT_DIR, "cabinInfo.txt")
@@ -72,6 +96,16 @@ class Game:
         return r.Room("Cabin", "A dimly lit, cramped cabin.", cabin_layout, interaction_texts, self.game_map)
 
     def initialize_forest(self):
+        """
+        Initialize the forest room by reading its layout and interaction texts from a file.
+
+        This function reads data from "forestInfo.txt" to set up the forest's layout and
+        interaction texts. The file is expected to have a specific format where the first
+        section represents the forest layout and the second section contains the interaction
+        texts. Each section is read into a dictionary with coordinates as keys.
+
+        :return: A Room object representing the forest with its layout and interactions.
+        """
         forest_layout = {}
         interaction_texts = {}
         file_path = os.path.join(SCRIPT_DIR, "forestInfo.txt")
@@ -97,6 +131,16 @@ class Game:
         return r.Room("Forest", "A dark and foreboding forest.", forest_layout, interaction_texts, self.game_map)
 
     def initialize_ufoUnlit(self):
+        """
+        Initialize the unlit UFO room by reading its layout and interaction texts from a file.
+
+        This function reads data from "ufoInfoUnlit.txt" to set up the unlit UFO's layout and
+        interaction texts. The file is expected to have a specific format where the first
+        section represents the UFO layout and the second section contains the interaction
+        texts. Each section is read into a dictionary with coordinates as keys.
+
+        :return: A Room object representing the unlit UFO with its layout and interactions.
+        """
         ufoUnlit_layout = {}
         interaction_texts = {}
         file_path = os.path.join(SCRIPT_DIR, "ufoInfoUnlit.txt")
@@ -122,6 +166,16 @@ class Game:
         return r.Room("ufoUnlit", "A dark, mysterious structure.", ufoUnlit_layout, interaction_texts, self.game_map)
 
     def initialize_ufoLit(self):
+        """
+        Initialize the lit UFO room by reading its layout and interaction texts from a file.
+
+        This function reads data from "ufoInfoLit.txt" to set up the lit UFO's layout and
+        interaction texts. The file is expected to have a specific format where the first
+        section represents the UFO layout and the second section contains the interaction
+        texts. Each section is read into a dictionary with coordinates as keys.
+
+        :return: A Room object representing the lit UFO with its layout and interactions.
+        """
         ufoLit_layout = {}
         interaction_texts = {}
         file_path = os.path.join(SCRIPT_DIR, "ufoInfoLit.txt")
@@ -148,6 +202,16 @@ class Game:
 
     # Updates to handle player commands including room transition
     def run_command(self, command: str = "exit") -> bool:
+        """
+        Run a command for the player.
+
+        This function takes a command string, and performs the action associated with the
+        command. The player's current room and location are taken into account when
+        performing the action.
+
+        :param command: The command string to run.
+        :return: True if the game should continue, False if the game should exit.
+        """
         if "move" in command.lower():
             if self.player.move(command):
                 self.game_map.mark_explored(
@@ -192,6 +256,20 @@ class Game:
 
     # The game starting screen and initializes all neeeded objects
     def start(self):
+        """
+        The game starting screen and initializes all neeeded objects.
+
+        This function starts the game and contains the main game loop. It first displays the
+        title screen, then waits for the user to enter a command. If the command is "new game",
+        the user is placed in the starting room. If the command is "help", the help function is
+        called. If the command is "quit", the game exits. If the command is "debug", the debug
+        mode is entered. If the command is anything else, the user is asked to enter a valid
+        command.
+
+        Once the game is running, the user can enter commands to move around, interact with
+        objects, inspect items, and so on. The game continues to run until the user enters
+        "quit" or closes the window.
+        """
         self.title_screen()
         starting = True
         while starting:
@@ -230,6 +308,16 @@ class Game:
 
 
     def debug_mode(self):
+        """
+        Allows the user to enter debug mode, which allows them to select a room
+        to start in. The user can enter "cabin", "forest", "ufo unlit", or "ufo lit" to enter
+        the respective room. The user will be placed at the location (1,1) in the cabin, (2,3)
+        in the forest, (1,2) in the ufo unlit, or (1,2) in the ufo lit. The corresponding
+        room's areas will be marked as explored and drawn on the map. If the user enters
+        anything else, the function will return True, indicating that super hack debug mode
+        should not be exited. If the user enters a valid room name, the function will return
+        False, indicating that debug mode should be exited.
+        """
         print("[ENTERING SUPER HACKER DEBUG MODE!!!]")
         location = input("What room do you want to start in? ")
         if "cabin" in location.lower():

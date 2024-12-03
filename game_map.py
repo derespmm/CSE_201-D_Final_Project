@@ -9,6 +9,19 @@ import time
 
 class GameMap:
     def __init__(self, screen_width: int = 400, screen_height: int = 400):
+        """
+        Initialize the GameMap instance with the given screen size.
+
+        This function is responsible for setting up the window, initializing the
+        PyGame event loop, and setting the initial state of the game map.
+
+        Parameters
+        ----------
+        screen_width : int, optional
+            The width of the window in pixels. The default is 400.
+        screen_height : int, optional
+            The height of the window in pixels. The default is 400.
+        """
         self.screen_width = screen_width
         self.screen_height = screen_height
         self.running = True
@@ -51,6 +64,17 @@ class GameMap:
         self.thread.start()
 
     def _run_pygame_loop(self):
+        """
+        Run the PyGame event loop in a separate thread.
+
+        This function initializes PyGame, sets up the window, and enters the
+        event loop. It also continuously checks for updates from the main
+        thread and applies them to the game map.
+
+        The event loop runs until the window is closed.
+
+        :return: None
+        """
         pygame.init()
         self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
         pygame.display.set_caption("Unearthed Echoes Map")
